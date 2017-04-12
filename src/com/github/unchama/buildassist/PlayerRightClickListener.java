@@ -18,6 +18,8 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import com.github.unchama.seichiassist.SeichiAssist;
+
 public class PlayerRightClickListener implements Listener  {
 	HashMap<UUID, PlayerData> playermap = BuildAssist.playermap;
 
@@ -36,6 +38,7 @@ public class PlayerRightClickListener implements Listener  {
 		EquipmentSlot equipmentslot = event.getHand();
 		//プレイヤーデータ
 		PlayerData playerdata = BuildAssist.playermap.get(uuid);
+		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
 
 		//プレイヤーデータが無い場合は処理終了
 		if(playerdata == null){
@@ -123,6 +126,13 @@ public class PlayerRightClickListener implements Listener  {
 
 					//
 					int block_cnt = 0;
+					
+					//MineStack No.用
+					int no = -1;
+					
+					//MineStack設置できる最大量取得しておく
+					int max = 0;
+					
 					//オフハンドアイテムと、範囲内のブロックに一致する物があるかどうか判別
 					//同じ物がない場合・同じ物が3か所以上のY軸で存在する場合→SetReady = false
 					for(;searchY < playerlocy + 2 ;){
@@ -224,6 +234,47 @@ public class PlayerRightClickListener implements Listener  {
 									player.sendMessage(ChatColor.RED + "付近に誰かの保護がかかっているようです" ) ;
 									break;
 								}else {
+									//TODO:ここでMineStackの処理。flagがtrueならInvに関係なしにここに持ってくる
+									if(playerdata.zs_minestack_flag == true)minestack:{//label指定は基本的に禁じ手だが、今回は後付けなので使わせてもらう。(解読性向上のため、1箇所のみの利用)
+										for(int cnt = 0 ; cnt < SeichiAssist.minestacklist.size() ; cnt++ ){
+											if(offhanditem.getType().equals(SeichiAssist.minestacklist.get(cnt).getMaterial()) && 
+													offhanditem.getData().getData() == SeichiAssist.minestacklist.get(cnt).getDurability()){
+												no = cnt;
+												break;
+												//no:設置するブロック・max:設置できる最大量
+											}
+										}
+										if(no > 0){
+											//設置するブロックがMineStackに登録済み
+											//1引く
+											if(playerdata_s.minestack.getNum(no) > 0){
+												player.sendMessage("MineStackよりブロック消費");//TODO:DEBUG
+												player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));//TODO:DEBUG
+												playerdata_s.minestack.setNum(no, playerdata_s.minestack.getNum(no) - 1);
+												player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
+												
+												//設置処理
+												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setType(offhanditem.getType());
+												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setData(offhanditem.getData().getData());
+												
+												//ブロックカウント
+												block_cnt++;
+												
+												//あとの設定
+												setblockX ++ ;
+
+												if(setblockX > playerlocx + AREAint){
+													setblockX = setblockX - AREAintB ;
+													setblockZ ++ ;
+												}
+												continue;
+											}else{
+												player.sendMessage("MineStackのブロックがありません。インベントリより消費します。");//TODO:DEBUG
+												break minestack;//minestack処理はなかったことにして次のfor分に飛ぶ。(label:minestackだけから抜ける)
+											}
+										}
+									}
+									
 
 								//インベントリの左上から一つずつ確認する。
 								//※一度「該当アイテムなし」と判断したスロットは次回以降スキップする様に組んであるゾ

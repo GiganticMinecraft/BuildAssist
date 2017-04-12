@@ -91,4 +91,9 @@ public class Config{
 		return Util.toInt(config.getString("BuildNum1minLimit" ));
 	}
 	
+	//ブロック範囲設置スキルのマインスタック優先解放レベル
+	public int getZoneskillMinestacklevel(){
+		return Util.toInt(config.getString("ZoneSetSkill.minestack"));
+	}
+	
 }
