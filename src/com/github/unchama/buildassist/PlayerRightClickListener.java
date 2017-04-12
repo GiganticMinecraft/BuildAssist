@@ -234,7 +234,7 @@ public class PlayerRightClickListener implements Listener  {
 									player.sendMessage(ChatColor.RED + "付近に誰かの保護がかかっているようです" ) ;
 									break;
 								}else {
-									//TODO:ここでMineStackの処理。flagがtrueならInvに関係なしにここに持ってくる
+									//ここでMineStackの処理。flagがtrueならInvに関係なしにここに持ってくる
 									if(playerdata.zs_minestack_flag == true)minestack:{//label指定は基本的に禁じ手だが、今回は後付けなので使わせてもらう。(解読性向上のため、1箇所のみの利用)
 										for(int cnt = 0 ; cnt < SeichiAssist.minestacklist.size() ; cnt++ ){
 											if(offhanditem.getType().equals(SeichiAssist.minestacklist.get(cnt).getMaterial()) && 
@@ -248,10 +248,10 @@ public class PlayerRightClickListener implements Listener  {
 											//設置するブロックがMineStackに登録済み
 											//1引く
 											if(playerdata_s.minestack.getNum(no) > 0){
-												player.sendMessage("MineStackよりブロック消費");//TODO:DEBUG
-												player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));//TODO:DEBUG
+												//player.sendMessage("MineStackよりブロック消費");
+												//player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));
 												playerdata_s.minestack.setNum(no, playerdata_s.minestack.getNum(no) - 1);
-												player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
+												//player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
 												
 												//設置処理
 												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setType(offhanditem.getType());
@@ -269,7 +269,7 @@ public class PlayerRightClickListener implements Listener  {
 												}
 												continue;
 											}else{
-												player.sendMessage("MineStackのブロックがありません。インベントリより消費します。");//TODO:DEBUG
+												//player.sendMessage("MineStackのブロックがありません。インベントリより消費します。");
 												break minestack;//minestack処理はなかったことにして次のfor分に飛ぶ。(label:minestackだけから抜ける)
 											}
 										}
