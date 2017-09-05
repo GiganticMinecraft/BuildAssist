@@ -276,6 +276,20 @@ public class PlayerInventoryListener implements Listener {
 					player.sendMessage(ChatColor.RED + "土設置機能OFF" ) ;
 					player.openInventory(MenuInventoryData.getSetBlockSkillData(player));
 				}
+			}else if(itemstackcurrent.getType().equals(Material.CHEST)){
+				//MineStack優先設定
+				player.playSound(player.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 1, 1);
+				if(playerdata.level < BuildAssist.config.getZoneskillMinestacklevel()){
+					player.sendMessage(ChatColor.RED + "建築LVが足りません") ;
+				}else{
+					if(playerdata.zs_minestack_flag == true){
+						playerdata.zs_minestack_flag = false;
+						player.sendMessage(ChatColor.RED + "MineStack優先設定OFF");
+					}else{
+						playerdata.zs_minestack_flag = true;
+						player.sendMessage(ChatColor.RED + "MineStack優先設定ON");
+					}
+				}
 			}
 
 		}

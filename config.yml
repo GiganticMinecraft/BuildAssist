@@ -10,6 +10,7 @@ blocklineup:
 #範囲設置スキル
 ZoneSetSkill:
   level: '15'
+  minestack: '30'
 
 #スキルを使って並べた時のブロックカウント倍率
 BlockCountMag: '0.2'

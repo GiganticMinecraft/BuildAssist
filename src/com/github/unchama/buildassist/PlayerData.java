@@ -29,6 +29,9 @@ public class PlayerData {
 	public int line_up_step_flg;
 	public int line_up_des_flg;
 	public int line_up_minestack_flg;
+	//ブロック範囲設置スキル設定フラグ
+	public boolean zs_minestack_flag;
+	
 	private BuildAssist plugin = BuildAssist.plugin;
 
 
@@ -51,6 +54,8 @@ public class PlayerData {
 			line_up_step_flg = 0;
 			line_up_des_flg = 0;
 			line_up_minestack_flg = 0;
+			
+			zs_minestack_flag = false;
 			
 			build_num_1min = 0;
 
