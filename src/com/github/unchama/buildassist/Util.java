@@ -77,7 +77,8 @@ public static boolean isSkillEnable(Player player){
 			return true;
 		}
 		//プレイヤーの場所がメインワールド(world)にいる場合
-		if( player.getWorld().getName().equalsIgnoreCase("world")
+		if(player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)
+			|| player.getWorld().getName().equalsIgnoreCase("world")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
 			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
 		){
