@@ -76,7 +76,7 @@ public static boolean isSkillEnable(Player player){
 		if(SeichiAssist.DEBUG){
 			return true;
 		}
-		//プレイヤーの場所がメインワールド(world)にいる場合
+		//プレイヤーの場所がメインワールド(world)または各種整地ワールド(world_SW)にいる場合
 		if(player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)
 			|| player.getWorld().getName().equalsIgnoreCase("world")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether")

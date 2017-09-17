@@ -23,7 +23,7 @@ public class PlayerData {
 	public int AREAint ;
 
 	public int build_num_1min;			//1分のブロック設置数
-	
+
 	//ブロックを並べるスキル設定フラグ
 	public int line_up_flg;
 	public int line_up_step_flg;
@@ -31,7 +31,7 @@ public class PlayerData {
 	public int line_up_minestack_flg;
 	//ブロック範囲設置スキル設定フラグ
 	public boolean zs_minestack_flag;
-	
+
 	private BuildAssist plugin = BuildAssist.plugin;
 
 
@@ -54,9 +54,9 @@ public class PlayerData {
 			line_up_step_flg = 0;
 			line_up_des_flg = 0;
 			line_up_minestack_flg = 0;
-			
+
 			zs_minestack_flag = false;
-			
+
 			build_num_1min = 0;
 
 		}
@@ -143,7 +143,14 @@ public class PlayerData {
 				player.sendMessage(ChatColor.RED+"建築系データ保存失敗しました");
 				return;
 			}
-			playerdata_s.build_count_set(totalbuildnum);
+
+			//1分制限の判断
+			if (build_num_1min <= BuildAssist.config.getBuildNum1minLimit()) {
+				playerdata_s.build_count_set(totalbuildnum + build_num_1min);
+			} else {
+				playerdata_s.build_count_set(totalbuildnum + BuildAssist.config.getBuildNum1minLimit());
+			}
+
 			playerdata_s.build_lv_set(level);
 //			plugin.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "建築系データ保存");
 		}
