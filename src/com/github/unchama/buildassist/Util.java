@@ -7,6 +7,8 @@ import org.bukkit.plugin.Plugin;
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import java.math.BigDecimal;
+
 public class Util {
 	public Util() {
 	}
@@ -101,5 +103,22 @@ public static boolean isSkillEnable(Player player){
 		return id;
 	}
 
-
+	/**
+	 * 1分間の設置料を指定量増加させます。
+	 * ワールドによって倍率も加味されます。
+	 *
+	 * @param player 増加させるプレイヤー
+	 * @param amount 増加量
+	 */
+	public static void addBuild1MinAmount(Player player, BigDecimal amount) {
+		//プレイヤーデータ取得
+		PlayerData playerData = BuildAssist.playermap.get(player.getUniqueId());
+		//player.sendMessage("足す数:" + amount.doubleValue() + ",かけた後:" + amount.multiply(new BigDecimal("0.1")).doubleValue());
+		//ワールドによって倍率変化
+		if (player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)) {
+			playerData.build_num_1min = playerData.build_num_1min.add(amount.multiply(new BigDecimal("0.1")));
+		} else {
+			playerData.build_num_1min= playerData.build_num_1min.add(amount);
+		}
+	}
 }

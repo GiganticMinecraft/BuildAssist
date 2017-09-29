@@ -21,7 +21,6 @@ public class flyCommand implements TabExecutor {
 	@Override
 	public List<String> onTabComplete(CommandSender arg0, Command arg1,
 			String arg2, String[] arg3) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 

@@ -1,5 +1,6 @@
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -211,7 +212,7 @@ public class BlockLineUp implements Listener{
 				v *= double_mag;	//ハーフ2段重ねの場合は2倍
 				//カウント対象ワールドの場合カウント値を足す
 				if( com.github.unchama.buildassist.Util.isBlockCount(player) == true){	//対象ワールドかチェック
-					playerdata.build_num_1min += ( v * BuildAssist.config.getBlockCountMag() );	//設置した数を足す
+					Util.addBuild1MinAmount(player, new BigDecimal(v * BuildAssist.config.getBlockCountMag()));	//設置した数を足す
 				}
 				
 				//マインスタック優先の場合マインスタックの数を減らす

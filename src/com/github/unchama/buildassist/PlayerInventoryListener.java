@@ -285,9 +285,11 @@ public class PlayerInventoryListener implements Listener {
 					if(playerdata.zs_minestack_flag == true){
 						playerdata.zs_minestack_flag = false;
 						player.sendMessage(ChatColor.RED + "MineStack優先設定OFF");
+						player.openInventory(MenuInventoryData.getSetBlockSkillData(player));
 					}else{
 						playerdata.zs_minestack_flag = true;
 						player.sendMessage(ChatColor.RED + "MineStack優先設定ON");
+						player.openInventory(MenuInventoryData.getSetBlockSkillData(player));
 					}
 				}
 			}
