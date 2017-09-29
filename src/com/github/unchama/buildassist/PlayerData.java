@@ -1,6 +1,7 @@
 /*** Eclipse Class Decompiler plugin, copyright (c) 2012 Chao Chen (cnfree2000@hotmail.com) ***/
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ public class PlayerData {
 	public UUID uuid;
 	public int level;
 	//トータル設置ブロック数
-	public int totalbuildnum;
+	public BigDecimal totalbuildnum;
 
 	public boolean flyflag;
 	public int flytime;
@@ -22,7 +23,7 @@ public class PlayerData {
 	public boolean zsSkillDirtFlag;
 	public int AREAint ;
 
-	public int build_num_1min;			//1分のブロック設置数
+	public BigDecimal build_num_1min;			//1分のブロック設置数
 
 	//ブロックを並べるスキル設定フラグ
 	public int line_up_flg;
@@ -41,7 +42,7 @@ public class PlayerData {
 			//初期値を設定
 			name = Util.getName(player);
 			uuid = player.getUniqueId();
-			totalbuildnum = 0;
+			totalbuildnum = BigDecimal.ZERO;
 			level = 1;
 			flyflag = false;
 			flytime = 0;
@@ -57,7 +58,7 @@ public class PlayerData {
 
 			zs_minestack_flag = false;
 
-			build_num_1min = 0;
+			build_num_1min = BigDecimal.ZERO;
 
 		}
 		//レベルを更新
@@ -71,7 +72,7 @@ public class PlayerData {
 			//現在のランクの次を取得
 			int i = level;
 			//ランクが上がらなくなるまで処理
-			while(BuildAssist.levellist.get(i).intValue() <= totalbuildnum && (i+2) <= BuildAssist.levellist.size()){
+			while(BuildAssist.levellist.get(i).intValue() <= totalbuildnum.doubleValue() && (i+2) <= BuildAssist.levellist.size()){
 				if(!BuildAssist.DEBUG){
 					//レベルアップ時のメッセージ
 					player.sendMessage(ChatColor.GOLD+"ﾑﾑｯﾚﾍﾞﾙｱｯﾌﾟ∩( ・ω・)∩【建築Lv(" + i +")→建築Lv(" + (i+1) + ")】");
@@ -119,7 +120,7 @@ public class PlayerData {
 						// 初回は加算じゃなくベースとして代入にする
 						totalbuildnum = BuildBlock.calcBuildBlock(player);
 					} else {
-						totalbuildnum += BuildBlock.calcBuildBlock(player);
+						totalbuildnum = totalbuildnum.add(BuildBlock.calcBuildBlock(player));
 					}
 					f = (byte) (f | (0x01 << server_num));
 					playerdata_s.build_count_flg_set(f);
@@ -145,10 +146,10 @@ public class PlayerData {
 			}
 
 			//1分制限の判断
-			if (build_num_1min <= BuildAssist.config.getBuildNum1minLimit()) {
-				playerdata_s.build_count_set(totalbuildnum + build_num_1min);
+			if (build_num_1min.doubleValue() <= BuildAssist.config.getBuildNum1minLimit()) {
+				playerdata_s.build_count_set(totalbuildnum.add(build_num_1min));
 			} else {
-				playerdata_s.build_count_set(totalbuildnum + BuildAssist.config.getBuildNum1minLimit());
+				playerdata_s.build_count_set(totalbuildnum.add(new BigDecimal(BuildAssist.config.getBuildNum1minLimit())));
 			}
 
 			playerdata_s.build_lv_set(level);

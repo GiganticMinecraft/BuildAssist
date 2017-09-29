@@ -1,5 +1,6 @@
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -360,7 +361,7 @@ public class PlayerRightClickListener implements Listener  {
 					player.sendMessage(ChatColor.RED + "敷き詰めスキル：処理終了" ) ;
 					
 					if( com.github.unchama.buildassist.Util.isBlockCount(player) == true){
-						playerdata.build_num_1min += ( block_cnt * BuildAssist.config.getBlockCountMag() );	//設置した数を足す
+						Util.addBuild1MinAmount(player, new BigDecimal(block_cnt * BuildAssist.config.getBlockCountMag()));	//設置した数を足す
 					}
 
 					return;
