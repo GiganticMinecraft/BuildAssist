@@ -22,4 +22,4 @@ minestack_BlockCraft:
   level3: '45'
   
 #ブロック設置カウントの1分上限
-BuildNum1minLimit: '100'
+BuildNum1minLimit: '256'
