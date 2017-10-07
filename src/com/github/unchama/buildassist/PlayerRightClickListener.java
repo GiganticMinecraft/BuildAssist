@@ -127,13 +127,13 @@ public class PlayerRightClickListener implements Listener  {
 
 					//
 					int block_cnt = 0;
-					
+
 					//MineStack No.用
 					int no = -1;
-					
+
 					//MineStack設置できる最大量取得しておく
 					int max = 0;
-					
+
 					//オフハンドアイテムと、範囲内のブロックに一致する物があるかどうか判別
 					//同じ物がない場合・同じ物が3か所以上のY軸で存在する場合→SetReady = false
 					for(;searchY < playerlocy + 2 ;){
@@ -238,7 +238,7 @@ public class PlayerRightClickListener implements Listener  {
 									//ここでMineStackの処理。flagがtrueならInvに関係なしにここに持ってくる
 									if(playerdata.zs_minestack_flag == true)minestack:{//label指定は基本的に禁じ手だが、今回は後付けなので使わせてもらう。(解読性向上のため、1箇所のみの利用)
 										for(int cnt = 0 ; cnt < SeichiAssist.minestacklist.size() ; cnt++ ){
-											if(offhanditem.getType().equals(SeichiAssist.minestacklist.get(cnt).getMaterial()) && 
+											if(offhanditem.getType().equals(SeichiAssist.minestacklist.get(cnt).getMaterial()) &&
 													offhanditem.getData().getData() == SeichiAssist.minestacklist.get(cnt).getDurability()){
 												no = cnt;
 												break;
@@ -253,14 +253,14 @@ public class PlayerRightClickListener implements Listener  {
 												//player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));
 												playerdata_s.minestack.setNum(no, playerdata_s.minestack.getNum(no) - 1);
 												//player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
-												
+
 												//設置処理
 												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setType(offhanditem.getType());
 												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setData(offhanditem.getData().getData());
-												
+
 												//ブロックカウント
 												block_cnt++;
-												
+
 												//あとの設定
 												setblockX ++ ;
 
@@ -275,7 +275,7 @@ public class PlayerRightClickListener implements Listener  {
 											}
 										}
 									}
-									
+
 
 								//インベントリの左上から一つずつ確認する。
 								//※一度「該当アイテムなし」と判断したスロットは次回以降スキップする様に組んであるゾ
@@ -358,8 +358,9 @@ public class PlayerRightClickListener implements Listener  {
 							}
 						}
 					}
-					player.sendMessage(ChatColor.RED + "敷き詰めスキル：処理終了" ) ;
-					
+					//終了ログがうるさいので無くす
+					//player.sendMessage(ChatColor.RED + "敷き詰めスキル：処理終了" ) ;
+
 					if( com.github.unchama.buildassist.Util.isBlockCount(player) == true){
 						Util.addBuild1MinAmount(player, new BigDecimal(block_cnt * BuildAssist.config.getBlockCountMag()));	//設置した数を足す
 					}
