@@ -1,6 +1,7 @@
 /*** Eclipse Class Decompiler plugin, copyright (c) 2012 Chao Chen (cnfree2000@hotmail.com) ***/
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ public class PlayerData {
 	public UUID uuid;
 	public int level;
 	//トータル設置ブロック数
-	public int totalbuildnum;
+	public BigDecimal totalbuildnum;
 
 	public boolean flyflag;
 	public int flytime;
@@ -22,13 +23,16 @@ public class PlayerData {
 	public boolean zsSkillDirtFlag;
 	public int AREAint ;
 
-	public int build_num_1min;			//1分のブロック設置数
-	
+	public BigDecimal build_num_1min;			//1分のブロック設置数
+
 	//ブロックを並べるスキル設定フラグ
 	public int line_up_flg;
 	public int line_up_step_flg;
 	public int line_up_des_flg;
 	public int line_up_minestack_flg;
+	//ブロック範囲設置スキル設定フラグ
+	public boolean zs_minestack_flag;
+
 	private BuildAssist plugin = BuildAssist.plugin;
 
 
@@ -38,7 +42,7 @@ public class PlayerData {
 			//初期値を設定
 			name = Util.getName(player);
 			uuid = player.getUniqueId();
-			totalbuildnum = 0;
+			totalbuildnum = BigDecimal.ZERO;
 			level = 1;
 			flyflag = false;
 			flytime = 0;
@@ -51,8 +55,10 @@ public class PlayerData {
 			line_up_step_flg = 0;
 			line_up_des_flg = 0;
 			line_up_minestack_flg = 0;
-			
-			build_num_1min = 0;
+
+			zs_minestack_flag = false;
+
+			build_num_1min = BigDecimal.ZERO;
 
 		}
 		//レベルを更新
@@ -66,7 +72,7 @@ public class PlayerData {
 			//現在のランクの次を取得
 			int i = level;
 			//ランクが上がらなくなるまで処理
-			while(BuildAssist.levellist.get(i).intValue() <= totalbuildnum && (i+2) <= BuildAssist.levellist.size()){
+			while(BuildAssist.levellist.get(i).intValue() <= totalbuildnum.doubleValue() && (i+2) <= BuildAssist.levellist.size()){
 				if(!BuildAssist.DEBUG){
 					//レベルアップ時のメッセージ
 					player.sendMessage(ChatColor.GOLD+"ﾑﾑｯﾚﾍﾞﾙｱｯﾌﾟ∩( ・ω・)∩【建築Lv(" + i +")→建築Lv(" + (i+1) + ")】");
@@ -114,7 +120,7 @@ public class PlayerData {
 						// 初回は加算じゃなくベースとして代入にする
 						totalbuildnum = BuildBlock.calcBuildBlock(player);
 					} else {
-						totalbuildnum += BuildBlock.calcBuildBlock(player);
+						totalbuildnum = totalbuildnum.add(BuildBlock.calcBuildBlock(player));
 					}
 					f = (byte) (f | (0x01 << server_num));
 					playerdata_s.build_count_flg_set(f);
@@ -138,7 +144,14 @@ public class PlayerData {
 				player.sendMessage(ChatColor.RED+"建築系データ保存失敗しました");
 				return;
 			}
-			playerdata_s.build_count_set(totalbuildnum);
+
+			//1分制限の判断
+			if (build_num_1min.doubleValue() <= BuildAssist.config.getBuildNum1minLimit()) {
+				playerdata_s.build_count_set(totalbuildnum.add(build_num_1min));
+			} else {
+				playerdata_s.build_count_set(totalbuildnum.add(new BigDecimal(BuildAssist.config.getBuildNum1minLimit())));
+			}
+
 			playerdata_s.build_lv_set(level);
 //			plugin.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "建築系データ保存");
 		}

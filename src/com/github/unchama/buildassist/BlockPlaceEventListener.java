@@ -1,8 +1,10 @@
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.SeichiAssist;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,7 +39,9 @@ public class BlockPlaceEventListener implements Listener {
 				return;
 			}
 
-			playerdata.build_num_1min++;
+			Util.addBuild1MinAmount(player, BigDecimal.ONE);
+
+			//player.sendMessage("1Min:" + playerdata.build_num_1min.doubleValue());
 //			player.sendMessage(""+b.getType() + ":"+b.getData());
 //		}
 

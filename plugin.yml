@@ -1,6 +1,6 @@
 name: buildAssist
 main: com.github.unchama.buildassist.BuildAssist
-version: 0.0.15
+version: 0.0.16
 
 commands:
   fly:

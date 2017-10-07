@@ -5,6 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
+
 public class BuildBlock {
 	public int after;
 	public int before;
@@ -20,10 +22,10 @@ public class BuildBlock {
 		this.increase = (this.after - this.before);
 	}
 
-	public static int calcBuildBlock(Player player) {
-		int sum = 0;
+	public static BigDecimal calcBuildBlock(Player player) {
+		BigDecimal sum = BigDecimal.ZERO;
 		for (Material m : BuildAssist.materiallist) {
-			sum += player.getStatistic(Statistic.USE_ITEM, m);
+			sum = new BigDecimal(player.getStatistic(Statistic.USE_ITEM, m));
 		}
 		return sum;
 	}

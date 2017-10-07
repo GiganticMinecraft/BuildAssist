@@ -59,6 +59,13 @@ public class MenuInventoryData {
 		}else {
 			ZSSkill = "OFF" ;
 		}
+		
+		String ZSSkill_Minestack;
+		if(playerdata.zs_minestack_flag){
+			ZSSkill_Minestack = "ON";
+		}else{
+			ZSSkill_Minestack = "OFF";
+		}
 
 
 
@@ -71,7 +78,7 @@ public class MenuInventoryData {
 		lore.clear();
 		lore.addAll(Arrays.asList(ChatColor.RESET + "" +  ChatColor.AQUA + "建築レベル:" + playerdata.level
 //				, ChatColor.RESET + "" +  ChatColor.AQUA + "次のレベルまで:" + (BuildAssist.levellist.get(playerdata.level + 1).intValue() - playerdata.totalbuildnum)
-				, ChatColor.RESET + "" +  ChatColor.AQUA + "総建築量:" + playerdata.totalbuildnum
+				, ChatColor.RESET + "" +  ChatColor.AQUA + "総建築量:" + playerdata.totalbuildnum.doubleValue()
 //				, ChatColor.RESET + "" +  ChatColor.GOLD + "ランキング：" + prank + "位" + ChatColor.RESET + "" +  ChatColor.GRAY + "(" + BuildAssist.ranklist.size() +"人中)"
 
 				));
@@ -161,7 +168,9 @@ public class MenuInventoryData {
 		skullmeta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
 		itemstack.setDurability((short) 3);
 		skullmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "「範囲設置スキル」設定画面へ");
-		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動");
+		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動"
+							,ChatColor.RESET + "" + ChatColor.GRAY + "現在の設定"
+							,ChatColor.RESET + "" + ChatColor.GRAY + "MineStack優先設定:" + ZSSkill_Minestack);
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_Exclamation");
 		itemstack.setItemMeta(skullmeta);
@@ -241,6 +250,13 @@ public class MenuInventoryData {
 		}else {
 			ZSDirt = "OFF" ;
 		}
+		
+		String ZSSkill_Minestack;
+		if(playerdata.zs_minestack_flag){
+			ZSSkill_Minestack = "ON";
+		}else{
+			ZSSkill_Minestack = "OFF";
+		}
 
 		int ZSSkillA =(playerdata.AREAint) * 2 + 1;
 
@@ -273,7 +289,8 @@ public class MenuInventoryData {
 		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
 		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "現在の設定は以下の通りです");
 		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.AQUA + "" + ChatColor.UNDERLINE + "スキルの使用設定：" + ZSSkill
-							,ChatColor.RESET + "" +  ChatColor.AQUA + "" + ChatColor.UNDERLINE + "スキルの範囲設定：" + ZSSkillA + "×" + ZSSkillA);
+							,ChatColor.RESET + "" +  ChatColor.AQUA + "" + ChatColor.UNDERLINE + "スキルの範囲設定：" + ZSSkillA + "×" + ZSSkillA
+							,ChatColor.RESET + "" +  ChatColor.AQUA + "" + ChatColor.UNDERLINE + "MineStack優先設定:" + ZSSkill_Minestack);
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
 		inventory.setItem(13,itemstack);
@@ -345,6 +362,19 @@ public class MenuInventoryData {
 		itemstack.setItemMeta(skullmeta);
 		inventory.setItem(25,itemstack);
 
+		//35番目にMineStack優先設定を追加
+		//マインスタックの方を優先して消費する設定
+		itemstack = new ItemStack(Material.CHEST,1);
+		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CHEST);
+		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineStack優先設定：" + ZSSkill_Minestack);
+		lore = Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "スキルでブロックを並べるとき"
+				, ChatColor.RESET + "" + ChatColor.GRAY + "MineStackの在庫を優先して消費します。"
+				, ChatColor.RESET + "" + ChatColor.GRAY + "建築LV" + BuildAssist.config.getZoneskillMinestacklevel() + "以上で利用可能"
+				, ChatColor.RESET + "" + ChatColor.GRAY + "クリックで切り替え"
+				);
+		itemmeta.setLore(lore);
+		itemstack.setItemMeta(itemmeta);
+		inventory.setItem(35,itemstack);
 
 		return inventory;
 	}

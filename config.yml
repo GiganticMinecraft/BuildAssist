@@ -10,6 +10,7 @@ blocklineup:
 #範囲設置スキル
 ZoneSetSkill:
   level: '15'
+  minestack: '30'
 
 #スキルを使って並べた時のブロックカウント倍率
 BlockCountMag: '0.2'
@@ -21,4 +22,4 @@ minestack_BlockCraft:
   level3: '45'
   
 #ブロック設置カウントの1分上限
-BuildNum1minLimit: '100'
+BuildNum1minLimit: '256'

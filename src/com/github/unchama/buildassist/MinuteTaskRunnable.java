@@ -1,6 +1,7 @@
 /*** Eclipse Class Decompiler plugin, copyright (c) 2012 Chao Chen (cnfree2000@hotmail.com) ***/
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -35,17 +36,23 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 				//1分間の建築量を加算する
 //				player.sendMessage("1分の設置数:" + playerdata.build_num_1min);
 //				player.sendMessage("累計設置数:" + playerdata.totalbuildnum);
-				if( playerdata.build_num_1min > BuildAssist.config.getBuildNum1minLimit() ){
-					playerdata.totalbuildnum += BuildAssist.config.getBuildNum1minLimit();
+
+				//player.sendMessage("建築量計算処理開始。1分の設置量:" + playerdata.build_num_1min.doubleValue() + ",累計設置量(before):" + playerdata.totalbuildnum.doubleValue());
+
+				if(playerdata.build_num_1min.doubleValue() > BuildAssist.config.getBuildNum1minLimit()){
+					playerdata.totalbuildnum = playerdata.totalbuildnum.add(new BigDecimal(BuildAssist.config.getBuildNum1minLimit()));
 				}else{
-					playerdata.totalbuildnum += playerdata.build_num_1min;
+					playerdata.totalbuildnum = playerdata.totalbuildnum.add(playerdata.build_num_1min);
 				}
-				playerdata.build_num_1min = 0;
+				playerdata.build_num_1min = BigDecimal.ZERO;
+
+				//player.sendMessage("設置量計算処理終了。累計設置量(after):" + playerdata.totalbuildnum.doubleValue());
+
 //				player.sendMessage("累計設置数:" + playerdata.totalbuildnum);
-				
+
 				playerdata.levelupdata(player);
 				playerdata.buildsave(player);
-				
+
 				if (playerdata.Endlessfly) {
 					if (!expman.hasExp(BuildAssist.config.getFlyExp())) {
 						player.sendMessage(ChatColor.RED
@@ -63,7 +70,7 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 					}
 				}else if (playerdata.flyflag) {
 					int flytime = playerdata.flytime;
-					if (flytime == 0) {
+					if (flytime <= 0) {
 						player.sendMessage(ChatColor.GREEN + "Fly効果が終了しました");
 						playerdata.flyflag = false;
 						player.setAllowFlight(false);

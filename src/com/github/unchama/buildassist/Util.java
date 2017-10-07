@@ -7,6 +7,8 @@ import org.bukkit.plugin.Plugin;
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
+import java.math.BigDecimal;
+
 public class Util {
 	public Util() {
 	}
@@ -76,17 +78,18 @@ public static boolean isSkillEnable(Player player){
 		if(SeichiAssist.DEBUG){
 			return true;
 		}
-		//プレイヤーの場所がメインワールド(world)にいる場合
-		if( player.getWorld().getName().equalsIgnoreCase("world")
-//			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
-//			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
+		//プレイヤーの場所がメインワールド(world)または各種整地ワールド(world_SW)にいる場合
+		if(player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)
+			|| player.getWorld().getName().equalsIgnoreCase("world")
+			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
+			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
 		){
 			return true;
 		}
 		//それ以外のワールドの場合
 		return false;
 	}
-	
+
 	//指定した名前のマインスタックの番号を返す		見つからなかった場合は-1
 	//名前はSeichiAssist.javaのminestacklistに定義されてる英語名
 	public static int MineStackobjname_indexOf(String s){
@@ -99,6 +102,23 @@ public static boolean isSkillEnable(Player player){
 		}
 		return id;
 	}
-	
-	
+
+	/**
+	 * 1分間の設置料を指定量増加させます。
+	 * ワールドによって倍率も加味されます。
+	 *
+	 * @param player 増加させるプレイヤー
+	 * @param amount 増加量
+	 */
+	public static void addBuild1MinAmount(Player player, BigDecimal amount) {
+		//プレイヤーデータ取得
+		PlayerData playerData = BuildAssist.playermap.get(player.getUniqueId());
+		//player.sendMessage("足す数:" + amount.doubleValue() + ",かけた後:" + amount.multiply(new BigDecimal("0.1")).doubleValue());
+		//ワールドによって倍率変化
+		if (player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)) {
+			playerData.build_num_1min = playerData.build_num_1min.add(amount.multiply(new BigDecimal("0.1")));
+		} else {
+			playerData.build_num_1min= playerData.build_num_1min.add(amount);
+		}
+	}
 }
