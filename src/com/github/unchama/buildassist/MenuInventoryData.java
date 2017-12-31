@@ -201,7 +201,7 @@ public class MenuInventoryData {
 				, ChatColor.RESET + "" + ChatColor.GRAY + "スキル設定 ：" + BuildAssist.line_up_str[playerdata.line_up_flg]
 				, ChatColor.RESET + "" + ChatColor.GRAY + "ハーフブロック設定 ：" + BuildAssist.line_up_step_str[playerdata.line_up_step_flg]
 				, ChatColor.RESET + "" + ChatColor.GRAY + "破壊設定 ：" + BuildAssist.line_up_off_on_str[playerdata.line_up_des_flg]
-				, ChatColor.RESET + "" + ChatColor.GRAY + "マインスタック優先設定 ：" + BuildAssist.line_up_off_on_str[playerdata.line_up_minestack_flg]
+				, ChatColor.RESET + "" + ChatColor.GRAY + "MineStack優先設定 ：" + BuildAssist.line_up_off_on_str[playerdata.line_up_minestack_flg]
 				);
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
@@ -363,7 +363,7 @@ public class MenuInventoryData {
 		inventory.setItem(25,itemstack);
 
 		//35番目にMineStack優先設定を追加
-		//マインスタックの方を優先して消費する設定
+		//MineStackの方を優先して消費する設定
 		itemstack = new ItemStack(Material.CHEST,1);
 		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CHEST);
 		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineStack優先設定：" + ZSSkill_Minestack);
@@ -444,12 +444,12 @@ public class MenuInventoryData {
 		itemstack.setItemMeta(itemmeta);
 		inventory.setItem(2,itemstack);
 
-		//マインスタックの方を優先して消費する設定
+		//MineStackの方を優先して消費する設定
 		itemstack = new ItemStack(Material.CHEST,1);
 		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CHEST);
-		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "マインスタック優先設定 ：" + BuildAssist.line_up_off_on_str[playerdata.line_up_minestack_flg]);
+		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineStack優先設定 ：" + BuildAssist.line_up_off_on_str[playerdata.line_up_minestack_flg]);
 		lore = Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "スキルでブロックを並べるとき"
-				, ChatColor.RESET + "" + ChatColor.GRAY + "マインスタックの在庫を優先して消費します。"
+				, ChatColor.RESET + "" + ChatColor.GRAY + "MineStackの在庫を優先して消費します。"
 				, ChatColor.RESET + "" + ChatColor.GRAY + "建築LV" + BuildAssist.config.getblocklineupMinestacklevel() + "以上で利用可能"
 				, ChatColor.RESET + "" + ChatColor.GRAY + "クリックで切り替え"
 				);
