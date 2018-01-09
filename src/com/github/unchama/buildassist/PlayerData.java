@@ -79,7 +79,7 @@ public class PlayerData {
 				}
 				i++;
 				if( (i+1) == BuildAssist.levellist.size()){
-					player.sendMessage(ChatColor.GOLD+"最大LVに到達したよ(`･ω･´)");
+					player.sendMessage(ChatColor.GOLD+"最大Lvに到達したよ(`･ω･´)");
 				}
 			}
 			level = i;
