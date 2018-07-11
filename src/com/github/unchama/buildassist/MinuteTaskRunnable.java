@@ -9,6 +9,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.github.unchama.seichiassist.SeichiAssist;
+
 public class MinuteTaskRunnable extends BukkitRunnable {
 	private BuildAssist plugin = BuildAssist.plugin;
 	private HashMap<UUID, PlayerData> playermap = BuildAssist.playermap;
@@ -28,6 +30,9 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 			if (!playerdata.isOffline()) {
 				Player player = this.plugin.getServer().getPlayer(
 						playerdata.uuid);
+				//SeichiAssistのデータを取得
+				UUID uuid = player.getUniqueId();
+				com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
 				//経験値変更用のクラスを設定
 				ExperienceManager expman = new ExperienceManager(player);
 
@@ -54,7 +59,10 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 				playerdata.buildsave(player);
 
 				if (playerdata.Endlessfly) {
-					if (!expman.hasExp(BuildAssist.config.getFlyExp())) {
+					if (playerdata_s.idletime >= 10) {
+						player.setAllowFlight(true);
+						player.sendMessage(ChatColor.GRAY + "放置時間中のFLYは無期限で継続中です(経験値は消費しません)");
+					} else if (!expman.hasExp(BuildAssist.config.getFlyExp())) {
 						player.sendMessage(ChatColor.RED
 								+ "Fly効果の発動に必要な経験値が不足しているため、");
 						player.sendMessage(ChatColor.RED + "Fly効果を終了しました");
@@ -70,7 +78,10 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 					}
 				}else if (playerdata.flyflag) {
 					int flytime = playerdata.flytime;
-					if (flytime <= 0) {
+					if (playerdata_s.idletime >= 10) {
+						player.setAllowFlight(true);
+						player.sendMessage(ChatColor.GRAY + "放置時間中のFLYは無期限で継続中です(経験値は消費しません)");
+					} else if (flytime <= 0) {
 						player.sendMessage(ChatColor.GREEN + "Fly効果が終了しました");
 						playerdata.flyflag = false;
 						player.setAllowFlight(false);
