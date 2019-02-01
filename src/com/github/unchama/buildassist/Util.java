@@ -59,6 +59,7 @@ public static boolean isSkillEnable(Player player){
 	//プレイヤーの場所が各種整地ワールド(world_SWで始まるワールド)または各種メインワールド(world)または各種TTワールドにいる場合
 	if(player.getWorld().getName().toLowerCase().startsWith(worldname)
 			|| player.getWorld().getName().equalsIgnoreCase("world")
+			|| player.getWorld().getName().equalsIgnoreCase("world_2")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
 			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
 			|| player.getWorld().getName().equalsIgnoreCase("world_TT")
@@ -81,6 +82,7 @@ public static boolean isSkillEnable(Player player){
 		//プレイヤーの場所がメインワールド(world)または各種整地ワールド(world_SW)にいる場合
 		if(player.getWorld().getName().toLowerCase().startsWith(SeichiAssist.SEICHIWORLDNAME)
 			|| player.getWorld().getName().equalsIgnoreCase("world")
+			|| player.getWorld().getName().equalsIgnoreCase("world_2")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
 			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
 		){
