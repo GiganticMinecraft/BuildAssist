@@ -132,7 +132,6 @@ public class PlayerData {
 				}
 			}
 			level = playerdata_s.build_lv_get();
-			player.sendMessage(ChatColor.GREEN + "建築系データ読み込み");
 			levelupdata(player);
 			return true;
 		}
@@ -153,7 +152,6 @@ public class PlayerData {
 			}
 
 			playerdata_s.build_lv_set(level);
-//			plugin.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "建築系データ保存");
 		}
 
 

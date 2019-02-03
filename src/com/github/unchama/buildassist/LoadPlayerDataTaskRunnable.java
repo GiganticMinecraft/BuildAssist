@@ -32,7 +32,7 @@ public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
 	@Override
 	public void run() {
 		// 接続時にスケジュールで実行する処理
-		
+
 		//対象プレイヤーがオフラインなら処理終了
 		if(BuildAssist.plugin.getServer().getPlayer(uuid) == null){
 			cancel();
@@ -43,7 +43,8 @@ public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
  		if(i >= 7){
 			cancel();
  			plugin.getServer().getConsoleSender().sendMessage(ChatColor.RED + p.getName() + "の建築系データが読み込めませんでした");
- 			p.sendMessage(ChatColor.RED + "建築系データが読み込めませんでした。再接続しても改善されない場合はお問い合わせフォームからお知らせ下さい。");
+ 			p.sendMessage(ChatColor.RED + "建築系データが読み込めませんでした。再接続をお願いします。改善されない場合はお手数ですがお問い合わせください");
+ 			p.kickPlayer(ChatColor.RED + "建築系データが読み込めませんでした。再接続をお願いします。改善されない場合はお手数ですがお問い合わせください");
  			return;
  		}
  		//DBから読み込み終わるまで待つ
@@ -68,7 +69,7 @@ public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
 		}
 		//建築系データ読み込み
 		playerdata.buildload(p);
-		
+
 		plugin.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "建築系データ読み込み完了");
 		return;
 	}
