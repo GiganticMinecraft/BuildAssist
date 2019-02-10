@@ -1,4 +1,3 @@
-/*** Eclipse Class Decompiler plugin, copyright (c) 2012 Chao Chen (cnfree2000@hotmail.com) ***/
 package com.github.unchama.buildassist;
 
 import java.util.ArrayList;
@@ -19,31 +18,21 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class BuildAssist extends JavaPlugin {
 	public static BuildAssist plugin;
-	public static Boolean DEBUG = false;
-
-	public static final String PLAYERDATA_TABLENAME = "playerdata";
+	static Boolean DEBUG = false;
 
 	//起動するタスクリスト
-	private List<BukkitTask> tasklist = new ArrayList<BukkitTask>();
+	private List<BukkitTask> tasklist = new ArrayList<>();
 
 	//総建築量ランキング表示用データリスト
-	public static final List<Integer> ranklist = new ArrayList<Integer>();
+	//public static final List<Integer> ranklist = new ArrayList<>();
 
 	//Playerdataに依存するデータリスト
-	public static final HashMap<UUID,PlayerData> playermap = new HashMap<UUID,PlayerData>();
+	public static final HashMap<UUID,PlayerData> playermap = new HashMap<>();
 	private HashMap<String, TabExecutor> commandlist;
-	public static Config config;
+	static Config config;
 
 	//lvの閾値
-	public static final List<Integer> levellist = new ArrayList<Integer>(Arrays.asList(
-/*
-			0,15,50,100,175,//5
-			300,450,650,900,1200,//10
-			1600,2100,2700,3400,4200,//15
-			5100,6100,7500,9000,10500,//20
-			12000,14000,16000,18000,20000,//25
-			25000,30000,35000,40000,50000,100000//30
-*/			
+	static final List<Integer> levellist = Arrays.asList(
 			0,50,100,200,300,
 			450,600,900,1200,1600,		//10
 			2000,2500,3000,3600,4300,
@@ -65,10 +54,10 @@ public class BuildAssist extends JavaPlugin {
 			808000,828000,848000,868000,888000,
 			908000,928000,948000,968000,1000000,//100
 			5000000
-			));
+			);
 
 	//設置ブロックの対象リスト
-	public static final List<Material> materiallist = new ArrayList<Material>(Arrays.asList(
+	static final List<Material> materiallist = Arrays.asList(
 			Material.ACACIA_STAIRS,Material.ACACIA_FENCE,Material.ACACIA_FENCE_GATE,
 			Material.BIRCH_WOOD_STAIRS,Material.BIRCH_FENCE,Material.BIRCH_FENCE_GATE,
 			Material.BONE_BLOCK,Material.BOOKSHELF,
@@ -95,19 +84,16 @@ public class BuildAssist extends JavaPlugin {
 			Material.TORCH,Material.WOOD,
 			Material.WOOD_STAIRS,Material.WOOD_STEP,
 			Material.WOOL,Material.CARPET,Material.WORKBENCH
-
-
-			));
+			);
 
 	//ハーフブロックまとめ
-	public static final List<Material> material_slab = new ArrayList<Material>(Arrays.asList(
+	public static final List<Material> material_slab = Arrays.asList(
 			Material.STONE_SLAB2,Material.PURPUR_SLAB,Material.WOOD_STEP,Material.STEP
-
-			));
+			);
 
 
 	//設置ブロックの対象リスト
-	public static final List<Material> materiallist2 = new ArrayList<Material>(Arrays.asList(
+	static final List<Material> materiallist2 = Arrays.asList(
 			Material.STONE//石
 			,Material.GRASS//草
 			,Material.DIRT//土
@@ -178,18 +164,16 @@ public class BuildAssist extends JavaPlugin {
 			,Material.DARK_OAK_FENCE//ダークオークフェンス
 			,Material.ACACIA_FENCE//アカシアフェンス
 //			,Material.RAILS//レール
-
-			));
+			);
 	
-	public static final List<Material> material_slab2 = new ArrayList<Material>(Arrays.asList(
+	static final List<Material> material_slab2 = Arrays.asList(
 			Material.STONE_SLAB2	//赤砂岩
 			,Material.PURPUR_SLAB	//プルパー
 			,Material.WOOD_STEP		//木
 			,Material.STEP			//石
+			);
 
-			));
-
-	public static final List<Material> material_destruction = new ArrayList<Material>(Arrays.asList(
+	static final List<Material> material_destruction = Arrays.asList(
 			Material.LONG_GRASS			//草
 			,Material.DEAD_BUSH			//枯れ木
 			,Material.YELLOW_FLOWER		//タンポポ
@@ -201,12 +185,11 @@ public class BuildAssist extends JavaPlugin {
 			,Material.DOUBLE_PLANT		//高い花、草
 			,Material.WATER				//水
 			,Material.STATIONARY_WATER	//水
+			);
 
-			));
-
-	public static String[] line_up_str = {"OFF","上側","下側"}; 
-	public static String[] line_up_step_str = {"上側","下側","両方"}; 
-	public static String[] line_up_off_on_str = {"OFF","ON"}; 
+	static String[] line_up_str = {"OFF","上側","下側"};
+	static String[] line_up_step_str = {"上側","下側","両方"};
+	static String[] line_up_off_on_str = {"OFF","ON"};
 
 	
 	@Override
@@ -219,7 +202,7 @@ public class BuildAssist extends JavaPlugin {
 
 
 		//コマンドの登録
-		commandlist = new HashMap<String, TabExecutor>();
+		commandlist = new HashMap<>();
 		commandlist.put("fly", new flyCommand(plugin));
 
 		getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
