@@ -3,6 +3,7 @@ package com.github.unchama.buildassist;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.github.unchama.seichiassist.util.Util;
+import org.bukkit.inventory.ItemStack;
 
 public class Config{
 	private static FileConfiguration config;
@@ -95,5 +96,19 @@ public class Config{
 	public int getZoneskillMinestacklevel(){
 		return Util.toInt(config.getString("ZoneSetSkill.minestack"));
 	}
-	
+
+    /**
+     * ワンドとして使用するアイテムを取得します.
+     */
+	public static ItemStack getWand() {
+	    return config.getItemStack("Wand.itemstack");
+    }
+
+    /**
+     * ワンドとして使用するアイテムを書き込みます.
+     */
+    public static void setWand(ItemStack wand) {
+        config.set("Wand.itemstack", wand);
+    }
+
 }

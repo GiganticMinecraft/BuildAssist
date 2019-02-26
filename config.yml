@@ -23,3 +23,7 @@ minestack_BlockCraft:
   
 #ブロック設置カウントの1分上限
 BuildNum1minLimit: '256'
+
+#ワンド関連の設定
+Wand:
+  itemstack:

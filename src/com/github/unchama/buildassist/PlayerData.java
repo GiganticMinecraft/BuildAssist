@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import com.github.unchama.seichiassist.SeichiAssist;
@@ -33,6 +34,9 @@ public class PlayerData {
 	//ブロック範囲設置スキル設定フラグ
 	public boolean zs_minestack_flag;
 
+	//スポイト用ブロックデータ
+    public Material spoit_Material;
+
 	private BuildAssist plugin = BuildAssist.plugin;
 
 
@@ -59,6 +63,8 @@ public class PlayerData {
 			zs_minestack_flag = false;
 
 			build_num_1min = BigDecimal.ZERO;
+
+			spoit_Material = Material.AIR;
 
 		}
 		//レベルを更新
