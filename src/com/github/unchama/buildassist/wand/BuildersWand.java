@@ -19,27 +19,9 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author karayuu
  */
 public class BuildersWand {
-    private ItemStack wand = Config.getWand();
+    static ItemStack wand = Config.getWand();
 
-    @EventHandler
-    public void spoit(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        
-        if (event.getAction() != Action.LEFT_CLICK_AIR || event.getAction() != Action.LEFT_CLICK_BLOCK) {
-            return;
-        }
-
-        if (!event.getItem().equals(wand)) {
-            return;
-        }
-        
-        Material spoit_material = event.getClickedBlock().getType();
-
-        BuildAssist.playermap.get(player.getUniqueId()).spoit_Material = spoit_material;
-        player.sendMessage(ChatColor.AQUA + "[ビルダーズワンド] " + ChatColor.YELLOW + spoit_material.name() + "を選択しました.");
-    }
-
-    private Inventory spoitMenu(Player player) {
+    static Inventory spoitMenu(Player player) {
         /*PlayerData data = BuildAssist.playermap.get(player.getUniqueId());*/
         Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER,
                 ChatColor.YELLOW + "設置したいブロックを入れてください");

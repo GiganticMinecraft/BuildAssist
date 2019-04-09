@@ -8,3 +8,9 @@ commands:
       usage: /<command> <finish/amount/endless>
       permission-message: You don't have <permission>
       permission: multibuildplugin.build
+
+  wand:
+      description: This is a wand command.
+      usage: /<command> <set/help>
+      permission-message: You don't have <permission>
+      permission: multibuildplugin.wand

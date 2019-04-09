@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.github.unchama.buildassist.wand.*;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -204,6 +205,7 @@ public class BuildAssist extends JavaPlugin {
 		//コマンドの登録
 		commandlist = new HashMap<>();
 		commandlist.put("fly", new flyCommand(plugin));
+		commandlist.put("wand", new WandCommand());
 
 		getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 		getServer().getPluginManager().registerEvents(new EntityListener(), this);
@@ -212,7 +214,8 @@ public class BuildAssist extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new BlockLineUp(), this);		//クリックイベント登録
 		getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);	//退出時
 		getServer().getPluginManager().registerEvents(new BlockPlaceEventListener(), this);	//ブロックを置いた時
-		
+
+        getServer().getPluginManager().registerEvents(new SpoitActionListener(), this);
 		
 		
 		for (Player p : getServer().getOnlinePlayers()) {

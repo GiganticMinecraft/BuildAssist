@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Config{
 	private static FileConfiguration config;
-	private BuildAssist plugin;
+	private static BuildAssist plugin;
 
 	//コンストラクタ
 	Config(BuildAssist _plugin){
@@ -109,6 +109,7 @@ public class Config{
      */
     public static void setWand(ItemStack wand) {
         config.set("Wand.itemstack", wand);
+        plugin.saveConfig();
     }
 
 }
