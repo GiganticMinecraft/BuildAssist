@@ -65,6 +65,7 @@ public static boolean isSkillEnable(Player player){
 			|| player.getWorld().getName().equalsIgnoreCase("world_TT")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether_TT")
 			|| player.getWorld().getName().equalsIgnoreCase("world_the_end_TT")
+            || player.getWorld().getName().equalsIgnoreCase("world_dot")
 			){
 		return true;
 	}
@@ -85,6 +86,7 @@ public static boolean isSkillEnable(Player player){
 			|| player.getWorld().getName().equalsIgnoreCase("world_2")
 			|| player.getWorld().getName().equalsIgnoreCase("world_nether")
 			|| player.getWorld().getName().equalsIgnoreCase("world_the_end")
+            || player.getWorld().getName().equalsIgnoreCase("world_dot")
 		){
 			return true;
 		}
