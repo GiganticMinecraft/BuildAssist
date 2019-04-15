@@ -715,7 +715,7 @@ public class MenuInventoryData {
 		for(int x = 1 ; x <= 5 ; x++){
 			itemstack = new ItemStack(Material.RED_NETHER_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.RED_NETHER_BRICK);
-			itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ネザーウォートをとネザーレンガを赤いネザーレンガに変換します" );
+			itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ネザーウォートとネザーレンガを赤いネザーレンガに変換します" );
 			lore = Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "ネザーウォート"+ ((int)Math.pow(10, x)*2) +"個+ネザーレンガ"+ ((int)Math.pow(10, x)*2) +"個→赤いネザーレンガ"+ ((int)Math.pow(10, x)) +"個"
 					, ChatColor.RESET + "" + ChatColor.GRAY + "ネザーウォートの数:" + String.format("%,d",num_1)
 					, ChatColor.RESET + "" + ChatColor.GRAY + "ネザーレンガの数:" + String.format("%,d",num_3)
