@@ -3,3 +3,4 @@
 .classpath
 .idea
 BuildAssist.iml
+out/artifacts/BuildAssist/BuildAssist.jar
