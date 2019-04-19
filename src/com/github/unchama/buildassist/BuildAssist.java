@@ -56,9 +56,70 @@ public class BuildAssist extends JavaPlugin {
 			5000000
 			);
 
-	//設置ブロックの対象リスト
+	//範囲設置ブロックの対象リスト
 	static final List<Material> materiallist = Arrays.asList(
-			Material.ACACIA_STAIRS,Material.ACACIA_FENCE,Material.ACACIA_FENCE_GATE,
+
+
+			Material.STONE//石
+			,Material.GRASS//草
+			,Material.DIRT//土
+			,Material.COBBLESTONE//丸石
+			,Material.WOOD//木
+			,Material.SAND//砂
+			,Material.GRAVEL//砂利
+			,Material.GOLD_ORE//金鉱石
+			,Material.IRON_ORE//鉄鉱石
+			,Material.COAL_ORE//石炭鉱石
+			,Material.LOG//原木
+			,Material.GLASS//ガラス
+			,Material.LAPIS_ORE//ラピス鉱石
+			,Material.LAPIS_BLOCK//ラピスB
+			,Material.SANDSTONE//砂岩
+			,Material.WOOL//羊毛
+			,Material.GOLD_BLOCK//金B
+			,Material.IRON_BLOCK//鉄B
+			,Material.BRICK//レンガB
+			,Material.BOOKSHELF//本棚
+			,Material.MOSSY_COBBLESTONE//苔石
+			,Material.OBSIDIAN//黒曜石
+			,Material.DIAMOND_ORE//ダイヤ鉱石
+			,Material.DIAMOND_BLOCK//ダイヤB
+			,Material.REDSTONE_ORE//赤鉱石
+			,Material.ICE//氷
+			,Material.SNOW_BLOCK//雪B
+			,Material.CLAY//粘土B
+			,Material.NETHERRACK//ネザーラック
+			,Material.SOUL_SAND//ソウルサンド
+			,Material.GLOWSTONE//グロウストーン
+			,Material.STAINED_GLASS//色付きガラス
+			,Material.SMOOTH_BRICK//石レンガ
+			,Material.MYCEL//菌糸
+			,Material.NETHER_BRICK//ネザーレンガ
+			,Material.ENDER_STONE//エンドストーン
+			,Material.EMERALD_ORE//エメ鉱石
+			,Material.EMERALD_BLOCK//エメB
+			,Material.COBBLE_WALL//丸石の壁
+			,Material.QUARTZ_ORE//水晶鉱石
+			,Material.QUARTZ_BLOCK//水晶B
+			,Material.STAINED_CLAY//色付き固焼き粘土
+			,Material.LOG_2//原木2
+			,Material.PRISMARINE//プリズマリン
+			,Material.SEA_LANTERN//シーランタン
+			,Material.HARD_CLAY//固焼き粘土
+			,Material.COAL_BLOCK//石炭B
+			,Material.PACKED_ICE//氷塊
+			,Material.RED_SANDSTONE//赤い砂岩
+			,Material.PURPUR_BLOCK//プルパーブ
+			,Material.PURPUR_PILLAR//柱状プルパーブ
+			,Material.END_BRICKS//エンドレンガB
+			,Material.RED_NETHER_BRICK//赤ネザーレンガB
+			,Material.BONE_BLOCK//骨B
+			,Material.NETHER_WART_BLOCK//ネザーウォートB
+			,Material.CONCRETE//コンクリート
+			,Material.CONCRETE_POWDER//コンクリートパウダー
+
+
+			,Material.ACACIA_STAIRS,Material.ACACIA_FENCE,Material.ACACIA_FENCE_GATE,
 			Material.BIRCH_WOOD_STAIRS,Material.BIRCH_FENCE,Material.BIRCH_FENCE_GATE,
 			Material.BONE_BLOCK,Material.BOOKSHELF,
 			Material.BRICK,Material.BRICK_STAIRS,
@@ -92,7 +153,7 @@ public class BuildAssist extends JavaPlugin {
 			);
 
 
-	//設置ブロックの対象リスト
+	//直列設置ブロックの対象リスト
 	static final List<Material> materiallist2 = Arrays.asList(
 			Material.STONE//石
 			,Material.GRASS//草
@@ -148,7 +209,7 @@ public class BuildAssist extends JavaPlugin {
 			,Material.END_BRICKS//エンドレンガB
 			,Material.RED_NETHER_BRICK//赤ネザーレンガB
 			,Material.BONE_BLOCK//骨B
-			
+
 //			,Material.LEAVES//葉		設置した葉が時間経過で消えるので除外
 			,Material.FENCE//オークフェンス
 			,Material.IRON_FENCE//鉄フェンス
@@ -164,8 +225,30 @@ public class BuildAssist extends JavaPlugin {
 			,Material.DARK_OAK_FENCE//ダークオークフェンス
 			,Material.ACACIA_FENCE//アカシアフェンス
 //			,Material.RAILS//レール
+
+			,Material.NETHER_WART_BLOCK//ネザーウォートB
+			,Material.CONCRETE//コンクリート
+			,Material.CONCRETE_POWDER//コンクリートパウダー
+/*
+			,Material.WHITE_GLAZED_TERRACOTTA//彩釉テラコッタ	ブロックの向きがあるので除外
+			,Material.ORANGE_GLAZED_TERRACOTTA
+			,Material.MAGENTA_GLAZED_TERRACOTTA
+			,Material.LIGHT_BLUE_GLAZED_TERRACOTTA
+			,Material.YELLOW_GLAZED_TERRACOTTA
+			,Material.LIME_GLAZED_TERRACOTTA
+			,Material.PINK_GLAZED_TERRACOTTA
+			,Material.GRAY_GLAZED_TERRACOTTA
+			,Material.SILVER_GLAZED_TERRACOTTA
+			,Material.CYAN_GLAZED_TERRACOTTA
+			,Material.PURPLE_GLAZED_TERRACOTTA
+			,Material.BLUE_GLAZED_TERRACOTTA
+			,Material.BROWN_GLAZED_TERRACOTTA
+			,Material.GREEN_GLAZED_TERRACOTTA
+			,Material.RED_GLAZED_TERRACOTTA
+			,Material.BLACK_GLAZED_TERRACOTTA
+*/
 			);
-	
+
 	static final List<Material> material_slab2 = Arrays.asList(
 			Material.STONE_SLAB2	//赤砂岩
 			,Material.PURPUR_SLAB	//プルパー
@@ -191,7 +274,7 @@ public class BuildAssist extends JavaPlugin {
 	static String[] line_up_step_str = {"上側","下側","両方"};
 	static String[] line_up_off_on_str = {"OFF","ON"};
 
-	
+
 	@Override
 	public void onEnable() {
 		plugin = this;
@@ -212,9 +295,9 @@ public class BuildAssist extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new BlockLineUp(), this);		//クリックイベント登録
 		getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);	//退出時
 		getServer().getPluginManager().registerEvents(new BlockPlaceEventListener(), this);	//ブロックを置いた時
-		
-		
-		
+
+
+
 		for (Player p : getServer().getOnlinePlayers()) {
 			UUID uuid = p.getUniqueId();
 
