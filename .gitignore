@@ -1,5 +1,13 @@
 /bin/
 
+#Eclipse
 .classpath
-.idea
-BuildAssist.iml
+*.prefs
+
+#IntelliJ IDEA
+.idea/
+*.iml
+/bins/
+/test/
+/target/
+/localDependencies/
