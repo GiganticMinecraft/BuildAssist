@@ -20,6 +20,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import com.github.unchama.buildassist.util.ExternalPlugins;
 import com.github.unchama.seichiassist.SeichiAssist;
+import com.github.unchama.seichiassist.minestack.MineStackObj;
 //import org.bukkit.metadata.FixedMetadataValue;
 //import org.bukkit.plugin.java.JavaPlugin;
 //import com.github.unchama.seichiassist.util.Util;
@@ -129,9 +130,10 @@ public class BlockLineUp implements Listener{
 				//マインスタック優先の場合最大値をマインスタックの数を足す
 				if( playerdata.line_up_minestack_flg == 1 ){
 					for( int cnt = 0 ; cnt < SeichiAssist.minestacklist.size() ; cnt++){
+						final MineStackObj mineStackObj = SeichiAssist.minestacklist.get(cnt);
 						if( m.equals( SeichiAssist.minestacklist.get(cnt).getMaterial() ) &&
 								d == SeichiAssist.minestacklist.get(cnt).getDurability()){
-							max += playerdata_s.minestack.getNum(cnt);
+							max += playerdata_s.minestack.getStackedAmountOf(mineStackObj);
 							no = cnt;
 //							player.sendMessage("マインスタックNo.：" + no + "　max：" + max);
 							break;
@@ -213,26 +215,40 @@ public class BlockLineUp implements Listener{
 
 				//マインスタック優先の場合マインスタックの数を減らす
 				if( playerdata.line_up_minestack_flg == 1 && no > -1){
-//					if ( m == Material.STEP && (d == 0 || d == 8 ) || ( m == Material.DOUBLE_STEP && d == 0 )){
-						int num = playerdata_s.minestack.getNum(no) - v;
-//						player.sendMessage("マインスタック設置前残:" + playerdata_s.minestack.getNum(no));
-//						player.sendMessage("設置数:" + v);
-						if( num < 0 ){
-							v = num * (-1);
-							num = 0;
-						}else{
-							v = 0;
-						}
-//						player.sendMessage("メインハンド消費:" + v +" マインスタック残:" + num);
-						playerdata_s.minestack.setNum(no , num);
-//					}
+					final MineStackObj mineStackObj = SeichiAssist.minestacklist.get(no);
+
+
+					//設置した数vを再計算(下のメインハンドの処理に使用する為)
+					/*
+					 * TODO 変数vの意味が以下の様に変わっているので可読性が宜しくない
+					 * (設置した数 -> 設置した数のうち、MineStack上で足りなかったブロック数)
+					 */
+					long num = playerdata_s.minestack.getStackedAmountOf(mineStackObj) - v;
+					if( num < 0 ){ // minestack上の残数では足りない場合
+						//minestackは0にする
+						playerdata_s.minestack.subtractStackedAmountOf
+							(mineStackObj , playerdata_s.minestack.getStackedAmountOf(mineStackObj));
+
+						//minestack不足分をvへ代入
+						v = (int)num * (-1);
+
+					}else{ // minestack上の残数で足りる場合
+						//minestack上から設置した数分引く
+						playerdata_s.minestack.subtractStackedAmountOf(mineStackObj , v);
+
+						//足りなかったブロックは0なのでvには0を代入
+						v = 0;
+					}
 				}
-				if (mainhanditem.getAmount() - v <= 0 ){//アイテム数が0ならメインハンドのアイテムをクリア
+
+				//アイテム数が0ならメインハンドのアイテムをクリア
+				if (mainhanditem.getAmount() - v <= 0 ){
 //					mainhanditem.setType(Material.AIR);
 //					mainhanditem.setAmount(-1);
 					inventory.setItemInMainHand(new ItemStack(Material.AIR,-1));//アイテム数が0になっても消えないので自前で消す
 				}else{	//0じゃないなら設置した分を引く
 					mainhanditem.setAmount(mainhanditem.getAmount() - v );
+
 				}
 //				playerdata_s.activeskilldata.mana.decreaseMana((double)(v) * mana_mag , player, playerdata_s.level);
 				player.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 1, 1);

@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import com.github.unchama.seichiassist.SeichiAssist;
+import com.github.unchama.seichiassist.minestack.MineStackObj;
 
 public class PlayerRightClickListener implements Listener  {
 	HashMap<UUID, PlayerData> playermap = BuildAssist.playermap;
@@ -248,10 +249,11 @@ public class PlayerRightClickListener implements Listener  {
 										if(no > 0){
 											//設置するブロックがMineStackに登録済み
 											//1引く
-											if(playerdata_s.minestack.getNum(no) > 0){
+											final MineStackObj mineStackObj = SeichiAssist.minestacklist.get(no);
+											if(playerdata_s.minestack.getStackedAmountOf(mineStackObj) > 0){
 												//player.sendMessage("MineStackよりブロック消費");
 												//player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));
-												playerdata_s.minestack.setNum(no, playerdata_s.minestack.getNum(no) - 1);
+												playerdata_s.minestack.subtractStackedAmountOf(mineStackObj, 1);
 												//player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
 
 												//設置処理

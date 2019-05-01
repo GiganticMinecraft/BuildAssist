@@ -25,8 +25,8 @@ public class PlayerQuitListener implements Listener {
 		UUID uuid = player.getUniqueId();
 		//プレイヤーデータ取得
 		PlayerData playerdata = playermap.get(uuid);
-		
-		
+
+
 		//念のためエラー分岐
 		if(playerdata == null){
 			Bukkit.getLogger().warning(player.getName() + " -> のplayerdataロスト");
