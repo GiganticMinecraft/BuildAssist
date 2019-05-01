@@ -2,7 +2,7 @@ package com.github.unchama.buildassist;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import com.github.unchama.seichiassist.util.Util;
+import com.github.unchama.buildassist.util.TypeConverter;
 
 public class Config{
 	private static FileConfiguration config;
@@ -42,7 +42,7 @@ public class Config{
 
 
 	public int getFlyExp() {
-		return Util.toInt(config.getString("flyexp"));
+		return Integer.parseInt(config.getString("flyexp"));
 	}
 /*
 	public String getURL(){
@@ -61,39 +61,39 @@ public class Config{
 
 //ブロックを並べるスキル開放LV
 	public int getblocklineuplevel() {
-		return Util.toInt(config.getString("blocklineup.level"));
+		return Integer.parseInt(config.getString("blocklineup.level"));
 	}
 //ブロックを並べるスキルのマナ消費倍率
 	public double getblocklineupmana_mag() {
-		return Util.toDouble(config.getString("blocklineup.mana_mag"));
+		return TypeConverter.toDouble(config.getString("blocklineup.mana_mag"));
 	}
 //ブロックを並べるスキルマインスタック優先開放LV
 	public int getblocklineupMinestacklevel() {
-		return Util.toInt(config.getString("blocklineup.minestack_level"));
+		return TypeConverter.toInt(config.getString("blocklineup.minestack_level"));
 	}
 
 	public int getZoneSetSkillLevel(){
-		return Util.toInt(config.getString("ZoneSetSkill.level"));
+		return TypeConverter.toInt(config.getString("ZoneSetSkill.level"));
 	}
 
 //スキルを使って並べた時のブロックカウント倍率
 	public double getBlockCountMag(){
-		return Util.toDouble(config.getString("BlockCountMag"));
+		return TypeConverter.toDouble(config.getString("BlockCountMag"));
 	}
-	
+
 	//MineStackブロック一括クラフト開放LV
 	public int getMinestackBlockCraftlevel(int lv) {
-		return Util.toInt(config.getString("minestack_BlockCraft.level" + lv ));
+		return TypeConverter.toInt(config.getString("minestack_BlockCraft.level" + lv ));
 	}
-	
+
 	//ブロック設置カウントの1分上限
 	public int getBuildNum1minLimit() {
-		return Util.toInt(config.getString("BuildNum1minLimit" ));
+		return TypeConverter.toInt(config.getString("BuildNum1minLimit" ));
 	}
-	
+
 	//ブロック範囲設置スキルのマインスタック優先解放レベル
 	public int getZoneskillMinestacklevel(){
-		return Util.toInt(config.getString("ZoneSetSkill.minestack"));
+		return TypeConverter.toInt(config.getString("ZoneSetSkill.minestack"));
 	}
-	
+
 }
