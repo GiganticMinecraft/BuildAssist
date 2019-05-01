@@ -1,13 +1,16 @@
 /*** Eclipse Class Decompiler plugin, copyright (c) 2012 Chao Chen (cnfree2000@hotmail.com) ***/
 package com.github.unchama.buildassist;
 
+import java.math.BigDecimal;
+
+import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.github.unchama.seichiassist.SeichiAssist;
+import com.github.unchama.seichiassist.minestack.MineStackObj;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-
-import java.math.BigDecimal;
 
 public class Util {
 	public Util() {
@@ -94,19 +97,15 @@ public static boolean isSkillEnable(Player player){
 		return false;
 	}
 
-	//指定した名前のマインスタックの番号を返す		見つからなかった場合は-1
-	//名前はSeichiAssist.javaのminestacklistに定義されてる英語名
-	public static int MineStackobjname_indexOf(String s){
-		int id = -1;
-		for(int x = 0 ; x < SeichiAssist.minestacklist.size() ; x++){
-			if( s.equals( SeichiAssist.minestacklist.get(x).getMineStackObjName() ) ){
-				id = x;
-				break;
-			}
-		}
-		return id;
+	/**
+	 * 指定した名前のマインスタックオブジェクトを返す
+	 */
+	// TODO これはここにあるべきではない
+	@Deprecated public static @Nullable MineStackObj findMineStackObjectByName(String name) {
+		return SeichiAssist.minestacklist.stream()
+				.filter(obj -> name.equals(obj.getMineStackObjName()))
+				.findFirst().orElse(null);
 	}
-
 	/**
 	 * 1分間の設置料を指定量増加させます。
 	 * ワールドによって倍率も加味されます。
