@@ -216,9 +216,33 @@ public class BlockLineUp implements Listener{
 				//マインスタック優先の場合マインスタックの数を減らす
 				if( playerdata.line_up_minestack_flg == 1 && no > -1){
 					final MineStackObj mineStackObj = SeichiAssist.minestacklist.get(no);
-					playerdata_s.minestack.subtractStackedAmountOf(mineStackObj , v);
+
+
+					//設置した数vを再計算(下のメインハンドの処理に使用する為)
+					/*
+					 * TODO 変数vの意味が以下の様に変わっているので可読性が宜しくない
+					 * (設置した数 -> 設置した数のうち、MineStack上で足りなかったブロック数)
+					 */
+					long num = playerdata_s.minestack.getStackedAmountOf(mineStackObj) - v;
+					if( num < 0 ){ // minestack上の残数では足りない場合
+						//minestackは0にする
+						playerdata_s.minestack.subtractStackedAmountOf
+							(mineStackObj , playerdata_s.minestack.getStackedAmountOf(mineStackObj));
+
+						//minestack不足分をvへ代入
+						v = (int)num * (-1);
+
+					}else{ // minestack上の残数で足りる場合
+						//minestack上から設置した数分引く
+						playerdata_s.minestack.subtractStackedAmountOf(mineStackObj , v);
+
+						//足りなかったブロックは0なのでvには0を代入
+						v = 0;
+					}
 				}
-				if (mainhanditem.getAmount() - v <= 0 ){//アイテム数が0ならメインハンドのアイテムをクリア
+
+				//アイテム数が0ならメインハンドのアイテムをクリア
+				if (mainhanditem.getAmount() - v <= 0 ){
 //					mainhanditem.setType(Material.AIR);
 //					mainhanditem.setAmount(-1);
 					inventory.setItemInMainHand(new ItemStack(Material.AIR,-1));//アイテム数が0になっても消えないので自前で消す
