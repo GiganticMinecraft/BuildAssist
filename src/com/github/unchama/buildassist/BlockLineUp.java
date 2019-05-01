@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,26 +17,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
+
+import com.github.unchama.buildassist.util.ExternalPlugins;
+import com.github.unchama.seichiassist.SeichiAssist;
 //import org.bukkit.metadata.FixedMetadataValue;
 //import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.material.Dye;
-import org.bukkit.material.MaterialData;
-
-import com.github.unchama.seichiassist.SeichiAssist;
-import com.github.unchama.seichiassist.data.*;
 //import com.github.unchama.seichiassist.util.Util;
 
 public class BlockLineUp implements Listener{
-	
+
 //    private JavaPlugin plugin;
-    
+
 //	public void BlockLineUp(JavaPlugin plugin) {
 //		this.plugin = plugin;
 //		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 //	}
-	
-	
+
+
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent e){
 		//プレイヤーを取得
@@ -75,21 +71,21 @@ public class BlockLineUp implements Listener{
 			//メインハンドとオフハンドを取得
 			ItemStack mainhanditem = inventory.getItemInMainHand();
 			ItemStack offhanditem = inventory.getItemInOffHand();
-			
+
 //			player.sendMessage(mainhanditem.getType().toString());
 //			player.sendMessage(mainhanditem.getData().toString());
 //			player.sendMessage(""+mainhanditem.getAmount());	//持ってる数
-			
+
 			//メインハンドにブロックがあるとき
 			if( BuildAssist.materiallist2.contains(mainhanditem.getType()) == true || BuildAssist.material_slab2.contains(mainhanditem.getType()) == true ) {
 				if(offhanditem.getType() != Material.STICK){//オフハンドに木の棒を持ってるときのみ発動する
 					return;
 				}
-				
+
 				Location pl = player.getLocation();
 				Material m = mainhanditem.getType();
 				byte d = mainhanditem.getData().getData();
-				
+
 				//仰角は下向きがプラスで上向きがマイナス
 				//方角は南を0度として時計回りに360度、何故か偶にマイナスの値になる
 				float pitch = pl.getPitch();
@@ -125,10 +121,10 @@ public class BlockLineUp implements Listener{
 						step_z = -1;
 					}else{//東
 						step_x = 1;
-					}				
+					}
 				}
 				double mana_mag = BuildAssist.config.getblocklineupmana_mag();
-				
+
 				int max = mainhanditem.getAmount();//メインハンドのアイテム数を最大値に
 				//マインスタック優先の場合最大値をマインスタックの数を足す
 				if( playerdata.line_up_minestack_flg == 1 ){
@@ -140,7 +136,7 @@ public class BlockLineUp implements Listener{
 //							player.sendMessage("マインスタックNo.：" + no + "　max：" + max);
 							break;
 						}
-						
+
 					}
 					/*
 					//石ハーフ
@@ -185,7 +181,7 @@ public class BlockLineUp implements Listener{
 					py += step_y;
 					pz += step_z;
 					Block b = pl.getWorld().getBlockAt(px , py , pz );
-					
+
 					//空気以外にぶつかったら設置終わり
 					if (b.getType() != Material.AIR){
 //						player.sendMessage(":"+b.getType().toString());
@@ -194,17 +190,17 @@ public class BlockLineUp implements Listener{
 							break;
 						}
 						Collection<ItemStack> i = b.getDrops();
-						
+
 						if(i.iterator().hasNext() == true){
 							b.getLocation().getWorld().dropItemNaturally(pl, i.iterator().next());
 						}
 					}
-					
+
 					//他人の保護がかかっている場合は設置終わり
-					if(!com.github.unchama.seichiassist.util.Util.getWorldGuard().canBuild(player, b.getLocation())){
+					if(!ExternalPlugins.getWorldGuard().canBuild(player, b.getLocation())){
 						break;
 					}
-					
+
 					pl.getWorld().getBlockAt(px , py , pz ).setType(m);
 					pl.getWorld().getBlockAt(px , py , pz ).setData(d);		//ブロックのデータを設定
 
@@ -214,7 +210,7 @@ public class BlockLineUp implements Listener{
 				if( com.github.unchama.buildassist.Util.isBlockCount(player) == true){	//対象ワールドかチェック
 					Util.addBuild1MinAmount(player, new BigDecimal(v * BuildAssist.config.getBlockCountMag()));	//設置した数を足す
 				}
-				
+
 				//マインスタック優先の場合マインスタックの数を減らす
 				if( playerdata.line_up_minestack_flg == 1 && no > -1){
 //					if ( m == Material.STEP && (d == 0 || d == 8 ) || ( m == Material.DOUBLE_STEP && d == 0 )){
@@ -240,10 +236,10 @@ public class BlockLineUp implements Listener{
 				}
 //				playerdata_s.activeskilldata.mana.decreaseMana((double)(v) * mana_mag , player, playerdata_s.level);
 				player.playSound(player.getLocation(), Sound.BLOCK_STONE_PLACE, 1, 1);
-				
+
 //				player.sendMessage("v:" + v +" d:" + d);
 //				player.sendMessage("マナ:" + playerdata_s.activeskilldata.mana.getMana() );
-				
+
 			}
 		}
 	}
