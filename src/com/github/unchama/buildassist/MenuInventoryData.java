@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.github.unchama.buildassist.util.AsyncInventorySetter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -92,7 +93,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner(playerdata.name);
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(0,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,0,itemstack);
 
 
 		//FLY 状況表示
@@ -174,7 +175,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_Exclamation");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(19,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,19,itemstack);
 
 
 		//ブロックを並べるスキル設定
@@ -306,7 +307,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(19,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,19,itemstack);
 
 
 		//範囲を一段階増加
@@ -320,7 +321,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(20,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,20,itemstack);
 
 
 		//範囲を初期値へ
@@ -333,7 +334,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_TNT");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(22,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,22,itemstack);
 
 
 		//範囲を一段階減少
@@ -347,7 +348,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(24,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,24,itemstack);
 
 
 		//範囲をMINへ
@@ -360,7 +361,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(25,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,25,itemstack);
 
 		//35番目にMineStack優先設定を追加
 		//MineStackの方を優先して消費する設定
@@ -404,7 +405,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowLeft");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(27,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,27,itemstack);
 
 		//ブロックを並べるスキル設定
 		itemstack = new ItemStack(Material.WOOD,1);
@@ -487,7 +488,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowLeft");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		// 2ページ目を開く
 		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
@@ -499,7 +500,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,53,itemstack);
 
 		//石を石ハーフブロックに変換10～10万
 		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("stone"));
@@ -674,7 +675,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		// 3ページ目を開く
 		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
@@ -686,7 +687,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,53,itemstack);
 
 		//雪玉を雪（ブロック）に変換10～1万
 		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("snow_ball"));
@@ -916,20 +917,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
-/*
-		// 4ページ目を開く
-		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
-		skullmeta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
-//		itemstack.setDurability((short) 3);
-		skullmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "4ページ目へ");
-		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動"
-				);
-		skullmeta.setLore(lore);
-		skullmeta.setOwner("MHF_ArrowDown");
-		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
-*/
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		//石炭を消費して粘土をレンガに変換4～4000
 		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("clay_ball"));
