@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.github.unchama.buildassist.util.AsyncInventorySetter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -59,7 +60,7 @@ public class MenuInventoryData {
 		}else {
 			ZSSkill = "OFF" ;
 		}
-		
+
 		String ZSSkill_Minestack;
 		if(playerdata.zs_minestack_flag){
 			ZSSkill_Minestack = "ON";
@@ -92,7 +93,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner(playerdata.name);
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(0,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,0,itemstack);
 
 
 		//FLY 状況表示
@@ -174,7 +175,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_Exclamation");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(19,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,19,itemstack);
 
 
 		//ブロックを並べるスキル設定
@@ -186,7 +187,7 @@ public class MenuInventoryData {
 				, ChatColor.RESET + "" + ChatColor.GRAY + "建築LV" + BuildAssist.config.getblocklineuplevel() + "以上で利用可能"
 				, ChatColor.RESET + "" + ChatColor.GRAY + "クリックで切り替え"
 //				, ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "※スキル発動時にマナを消費します。 最大消費マナ："+(BuildAssist.config.getblocklineupmana_mag()*64)
-				
+
 				);
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
@@ -250,7 +251,7 @@ public class MenuInventoryData {
 		}else {
 			ZSDirt = "OFF" ;
 		}
-		
+
 		String ZSSkill_Minestack;
 		if(playerdata.zs_minestack_flag){
 			ZSSkill_Minestack = "ON";
@@ -306,7 +307,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(19,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,19,itemstack);
 
 
 		//範囲を一段階増加
@@ -320,7 +321,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(20,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,20,itemstack);
 
 
 		//範囲を初期値へ
@@ -333,7 +334,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_TNT");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(22,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,22,itemstack);
 
 
 		//範囲を一段階減少
@@ -347,7 +348,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(24,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,24,itemstack);
 
 
 		//範囲をMINへ
@@ -360,7 +361,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(25,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,25,itemstack);
 
 		//35番目にMineStack優先設定を追加
 		//MineStackの方を優先して消費する設定
@@ -387,7 +388,7 @@ public class MenuInventoryData {
 		UUID uuid = player.getUniqueId();
 		//プレイヤーデータ
 		PlayerData playerdata = BuildAssist.playermap.get(uuid);
-		
+
 		Inventory inventory = Bukkit.getServer().createInventory(null,4*9,ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "「ブロックを並べるスキル（仮）」設定");
 		ItemStack itemstack;
 		ItemMeta itemmeta;
@@ -404,7 +405,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowLeft");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(27,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,27,itemstack);
 
 		//ブロックを並べるスキル設定
 		itemstack = new ItemStack(Material.WOOD,1);
@@ -415,7 +416,7 @@ public class MenuInventoryData {
 				, ChatColor.RESET + "" + ChatColor.GRAY + "建築LV" + BuildAssist.config.getblocklineuplevel() + "以上で利用可能"
 				, ChatColor.RESET + "" + ChatColor.GRAY + "クリックで切り替え"
 //				, ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + "※スキル発動時にマナを消費します。 最大消費マナ："+(BuildAssist.config.getblocklineupmana_mag()*64)
-				
+
 				);
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
@@ -456,11 +457,11 @@ public class MenuInventoryData {
 		itemmeta.setLore(lore);
 		itemstack.setItemMeta(itemmeta);
 		inventory.setItem(8,itemstack);
-		
+
 		return inventory;
 	}
 
-	
+
 	//MineStackブロック一括クラフトメニュー
 	public static Inventory getBlockCraftData(Player p){
 		//プレイヤーを取得
@@ -470,7 +471,7 @@ public class MenuInventoryData {
 		//プレイヤーデータ
 //		PlayerData playerdata = BuildAssist.playermap.get(uuid);
 		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
-		
+
 		Inventory inventory = Bukkit.getServer().createInventory(null,6*9,ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "MineStackブロック一括クラフト1");
 		ItemStack itemstack;
 		ItemMeta itemmeta;
@@ -487,7 +488,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowLeft");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		// 2ページ目を開く
 		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
@@ -499,11 +500,11 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,53,itemstack);
 
 		//石を石ハーフブロックに変換10～10万
-		int num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("stone"));
-		int num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("step0"));
+		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("stone"));
+		long num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("step0"));
 		for(int x = 1 ; x <= 5 ; x++){
 			itemstack = new ItemStack(Material.STEP,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STEP);
@@ -519,10 +520,10 @@ public class MenuInventoryData {
 			inventory.setItem(x-1 , itemstack);
 		}
 
-		
+
 		//石を石レンガに変換10～10万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("stone"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("smooth_brick0"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("stone"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("smooth_brick0"));
 		for(int x = 1 ; x <= 5 ; x++){
 			itemstack = new ItemStack(Material.SMOOTH_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.SMOOTH_BRICK);
@@ -539,8 +540,8 @@ public class MenuInventoryData {
 		}
 
 		//花崗岩を磨かれた花崗岩に変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("granite"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("polished_granite"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("granite"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("polished_granite"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.STONE,x,(short)2);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
@@ -557,8 +558,8 @@ public class MenuInventoryData {
 		}
 
 		//閃緑岩を磨かれた閃緑岩に変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("diorite"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("polished_diorite"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("diorite"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("polished_diorite"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.STONE,x,(short)4);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
@@ -573,10 +574,10 @@ public class MenuInventoryData {
 			itemstack.setItemMeta(itemmeta);
 			inventory.setItem(x+22 , itemstack);
 		}
-		
+
 		//安山岩を磨かれた安山岩に変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("andesite"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("polished_andesite"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("andesite"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("polished_andesite"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.STONE,x,(short)6);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
@@ -591,10 +592,10 @@ public class MenuInventoryData {
 			itemstack.setItemMeta(itemmeta);
 			inventory.setItem(x+26 , itemstack);
 		}
-		
+
 		//ネザー水晶をネザー水晶ブロックに変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("quartz"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("quartz_block"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("quartz"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("quartz_block"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.QUARTZ_BLOCK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.QUARTZ_BLOCK);
@@ -609,10 +610,10 @@ public class MenuInventoryData {
 			itemstack.setItemMeta(itemmeta);
 			inventory.setItem(x+31 , itemstack);
 		}
-		
+
 		//レンガをレンガブロックに変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("brick_item"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("brick"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("brick_item"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("brick"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.BRICK);
@@ -629,8 +630,8 @@ public class MenuInventoryData {
 		}
 
 		//ネザーレンガをネザーレンガブロックに変換10～1万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_brick_item"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_brick"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_brick_item"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_brick"));
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.NETHER_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.NETHER_BRICK);
@@ -657,7 +658,7 @@ public class MenuInventoryData {
 		//プレイヤーデータ
 //		PlayerData playerdata = BuildAssist.playermap.get(uuid);
 		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
-		
+
 		Inventory inventory = Bukkit.getServer().createInventory(null,6*9,ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "MineStackブロック一括クラフト2");
 		ItemStack itemstack;
 		ItemMeta itemmeta;
@@ -674,7 +675,7 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		// 3ページ目を開く
 		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
@@ -686,12 +687,12 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowDown");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
+		AsyncInventorySetter.setItemAsync(inventory,53,itemstack);
 
 		//雪玉を雪（ブロック）に変換10～1万
-		int num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("snow_ball"));
-		int num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("snow_block"));
-		int num_3;
+		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("snow_ball"));
+		long num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("snow_block"));
+		long num_3;
 		for(int x = 1 ; x <= 4 ; x++){
 			itemstack = new ItemStack(Material.SNOW_BLOCK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.SNOW_BLOCK);
@@ -709,9 +710,9 @@ public class MenuInventoryData {
 
 
 		//ネザーウォートとネザーレンガを赤いネザーレンガに変換10～10万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_stalk"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("red_nether_brick"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_brick_item"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_stalk"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("red_nether_brick"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_brick_item"));
 		for(int x = 1 ; x <= 5 ; x++){
 			itemstack = new ItemStack(Material.RED_NETHER_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.RED_NETHER_BRICK);
@@ -729,9 +730,9 @@ public class MenuInventoryData {
 		}
 
 		//石炭を消費して鉄鉱石を鉄インゴットに変換4～4000
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("iron_ore"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("iron_ingot"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("coal"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("iron_ore"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("iron_ingot"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("coal"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.IRON_INGOT,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.IRON_INGOT);
@@ -749,9 +750,9 @@ public class MenuInventoryData {
 		}
 
 		//溶岩バケツを消費して鉄鉱石を鉄インゴットに変換50～5万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("iron_ore"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("iron_ingot"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("lava_bucket"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("iron_ore"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("iron_ingot"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("lava_bucket"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.IRON_INGOT,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.IRON_INGOT);
@@ -769,9 +770,9 @@ public class MenuInventoryData {
 		}
 
 		//石炭を消費して金鉱石を金インゴットに変換4～4000
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("gold_ore"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("gold_ingot"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("coal"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("gold_ore"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("gold_ingot"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("coal"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.GOLD_INGOT,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.GOLD_INGOT);
@@ -789,9 +790,9 @@ public class MenuInventoryData {
 		}
 
 		//溶岩バケツを消費して金鉱石を金インゴットに変換50～5万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("gold_ore"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("gold_ingot"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("lava_bucket"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("gold_ore"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("gold_ingot"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("lava_bucket"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.GOLD_INGOT,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.GOLD_INGOT);
@@ -809,9 +810,9 @@ public class MenuInventoryData {
 		}
 
 		//石炭を消費して砂をガラスに変換4～4000
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("sand"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("glass"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("coal"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("sand"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("glass"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("coal"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.GLASS,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.GLASS);
@@ -829,9 +830,9 @@ public class MenuInventoryData {
 		}
 
 		//溶岩バケツを消費して砂をガラスに変換50～5万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("sand"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("glass"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("lava_bucket"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("sand"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("glass"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("lava_bucket"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.GLASS,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.GLASS);
@@ -849,9 +850,9 @@ public class MenuInventoryData {
 		}
 
 		//石炭を消費してネザーラックをネザーレンガに変換4～4000
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("netherrack"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_brick_item"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("coal"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("netherrack"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_brick_item"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("coal"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.NETHER_BRICK_ITEM,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.NETHER_BRICK_ITEM);
@@ -869,9 +870,9 @@ public class MenuInventoryData {
 		}
 
 		//溶岩バケツを消費してネザーラックをネザーレンガに変換50～5万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("netherrack"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("nether_brick_item"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("lava_bucket"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("netherrack"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("nether_brick_item"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("lava_bucket"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.NETHER_BRICK_ITEM,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.NETHER_BRICK_ITEM);
@@ -899,7 +900,7 @@ public class MenuInventoryData {
 		//プレイヤーデータ
 //		PlayerData playerdata = BuildAssist.playermap.get(uuid);
 		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
-		
+
 		Inventory inventory = Bukkit.getServer().createInventory(null,6*9,ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "MineStackブロック一括クラフト3");
 		ItemStack itemstack;
 		ItemMeta itemmeta;
@@ -916,25 +917,12 @@ public class MenuInventoryData {
 		skullmeta.setLore(lore);
 		skullmeta.setOwner("MHF_ArrowUp");
 		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(45,itemstack);
-/*
-		// 4ページ目を開く
-		itemstack = new ItemStack(Material.SKULL_ITEM,1,(short) 3);
-		skullmeta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
-//		itemstack.setDurability((short) 3);
-		skullmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "4ページ目へ");
-		lore = Arrays.asList(ChatColor.RESET + "" +  ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで移動"
-				);
-		skullmeta.setLore(lore);
-		skullmeta.setOwner("MHF_ArrowDown");
-		itemstack.setItemMeta(skullmeta);
-		inventory.setItem(53,itemstack);
-*/
+		AsyncInventorySetter.setItemAsync(inventory,45,itemstack);
 
 		//石炭を消費して粘土をレンガに変換4～4000
-		int num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("clay_ball"));
-		int num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("brick_item"));
-		int num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("coal"));
+		long num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("clay_ball"));
+		long num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("brick_item"));
+		long num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("coal"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.CLAY_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CLAY_BRICK);
@@ -952,9 +940,9 @@ public class MenuInventoryData {
 		}
 
 		//溶岩バケツを消費して粘土をレンガに変換50～5万
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("clay_ball"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("brick_item"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("lava_bucket"));
+		num_1 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("clay_ball"));
+		num_2 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("brick_item"));
+		num_3 = playerdata_s.minestack.getStackedAmountOf(Util.findMineStackObjectByName("lava_bucket"));
 		for(int x = 0 ; x <= 3 ; x++){
 			itemstack = new ItemStack(Material.CLAY_BRICK,x);
 			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CLAY_BRICK);
@@ -970,26 +958,7 @@ public class MenuInventoryData {
 			itemstack.setItemMeta(itemmeta);
 			inventory.setItem(x+5 , itemstack);
 		}
-/*
-		//ガチャ当たりをガチャ券に交換　半分
-		num_1 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("clay_ball"));
-		num_2 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("iron_ingot"));
-		num_3 = playerdata_s.minestack.getNum(Util.MineStackobjname_indexOf("brick_item"));
-		itemstack = new ItemStack(Material.CLAY_BRICK,1);
-		itemmeta = Bukkit.getItemFactory().getItemMeta(Material.CLAY_BRICK);
-		itemmeta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ガチャ当たりをガチャ券に変換します" );
-		lore = Arrays.asList(ChatColor.RESET + "" + ChatColor.GRAY + "レアリティが当たり枠の景品のみ半分交換されます"
-				, ChatColor.RESET + "" + ChatColor.GRAY + "大当たり、ギガンティックは対象外です"
-				, ChatColor.RESET + "" + ChatColor.GRAY + "石炭の数:" + String.format("%,d",num_3)
-				, ChatColor.RESET + "" + ChatColor.GRAY + "レンガの数:" + String.format("%,d",num_2)
-				, ChatColor.RESET + "" + ChatColor.GRAY + "建築LV" + BuildAssist.config.getMinestackBlockCraftlevel() + "以上で利用可能"
-				, ChatColor.RESET + "" + ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "クリックで変換"
-				);
-		itemmeta.setLore(lore);
-		itemstack.setItemMeta(itemmeta);
-		inventory.setItem(8 , itemstack);
-*/
 		return inventory;
 	}
-	
+
 }
