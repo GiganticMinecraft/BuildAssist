@@ -105,11 +105,11 @@ public class PlayerData {
 
 		//建築系データを読み込む　ture:読み込み成功　false:読み込み失敗
 		public boolean buildload(Player player){
-			com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
+			com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.Companion.getPlayermap().get(uuid);
 			if(playerdata_s == null){
 				return false;
 			}
-			int server_num = SeichiAssist.config.getServerNum();
+			int server_num = SeichiAssist.Companion.getSeichiAssistConfig().getServerNum();
 
 			totalbuildnum = playerdata_s.build_count_get();
 			//ブロック設置カウントが統合されてない場合は統合する
@@ -138,7 +138,7 @@ public class PlayerData {
 
 		//建築系データを保存
 		public void buildsave(Player player){
-			com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
+			com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.Companion.getPlayermap().get(uuid);
 			if (playerdata_s == null){
 				player.sendMessage(ChatColor.RED+"建築系データ保存失敗しました");
 				return;

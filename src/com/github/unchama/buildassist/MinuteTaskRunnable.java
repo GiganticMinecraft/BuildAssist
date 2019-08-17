@@ -32,7 +32,7 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 						playerdata.uuid);
 				//SeichiAssistのデータを取得
 				UUID uuid = player.getUniqueId();
-				com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
+				com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.Companion.getPlayermap().get(uuid);
 				//経験値変更用のクラスを設定
 				ExperienceManager expman = new ExperienceManager(player);
 
@@ -59,7 +59,7 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 				playerdata.buildsave(player);
 
 				if (playerdata.Endlessfly) {
-					if (playerdata_s.idletime >= 10) {
+					if (playerdata_s.getIdletime() >= 10) {
 						player.setAllowFlight(true);
 						player.sendMessage(ChatColor.GRAY + "放置時間中のFLYは無期限で継続中です(経験値は消費しません)");
 					} else if (!expman.hasExp(BuildAssist.config.getFlyExp())) {
@@ -78,7 +78,7 @@ public class MinuteTaskRunnable extends BukkitRunnable {
 					}
 				}else if (playerdata.flyflag) {
 					int flytime = playerdata.flytime;
-					if (playerdata_s.idletime >= 10) {
+					if (playerdata_s.getIdletime() >= 10) {
 						player.setAllowFlight(true);
 						player.sendMessage(ChatColor.GRAY + "放置時間中のFLYは無期限で継続中です(経験値は消費しません)");
 					} else if (flytime <= 0) {
