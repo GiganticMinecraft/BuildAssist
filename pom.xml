@@ -49,8 +49,16 @@
       <url>http://repo.spring.io/plugins-release/</url>
     </repository>
     <repository>
-        <id>sponge-repo</id>
-        <url>https://repo.spongepowered.org/maven</url>
+      <id>sponge-repo</id>
+      <url>https://repo.spongepowered.org/maven</url>
+    </repository>
+    <repository>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <id>bungeecord-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
 
@@ -61,15 +69,6 @@
 
       各々のsystemPathにjarを置いてからビルドを実行すること
     -->
-    <!-- Spigot -->
-    <dependency>
-      <groupId>local.spigot</groupId>
-      <artifactId>spigot</artifactId>
-      <version>null</version>
-      <scope>system</scope>
-      <systemPath>${basedir}/localDependencies/spigot-1.12.2.jar</systemPath>
-    </dependency>
-
     <!-- SeichiAssist(整地鯖内製) -->
     <dependency>
       <groupId>local.SeichiAssist</groupId>
@@ -83,20 +82,13 @@
     <!-- ダウンロード可能な依存jar -->
 
     <!--
-      WorldBorder
-
-      1.8.7公式リリース時のコミットでのビルド
-      https://github.com/Brettflan/WorldBorder/commit/d8d1b28b5747c416d68f5ac78d2f1356bc3e7423
-
-      これを含めないとビルド時にエラーが発生する(bukkit-1.12-R0.1-SNAPSHOT.jar が存在しません)
-
+      Spigot
     -->
     <dependency>
-      <groupId>com.github.Brettflan</groupId>
-      <artifactId>WorldBorder</artifactId>
-      <version>d8d1b28b57</version>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.12.2-R0.1-SNAPSHOT</version>
     </dependency>
-
     <!--
       WorldGuard
 
@@ -114,9 +106,21 @@
       https://dev.bukkit.org/projects/worldguard/files/2610618
     -->
     <dependency>
-      <groupId>com.github.EngineHub.WorldGuard</groupId>
+      <groupId>com.sk89q.worldguard</groupId>
       <artifactId>worldguard-legacy</artifactId>
-      <version>8eeab682db</version>
+      <version>6.2</version>
+    </dependency>
+
+    <!--
+      playerdata_s.getMinestack()
+
+      エラーが出るので追加
+    -->
+
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>6.1.5</version>
     </dependency>
 
   </dependencies>
