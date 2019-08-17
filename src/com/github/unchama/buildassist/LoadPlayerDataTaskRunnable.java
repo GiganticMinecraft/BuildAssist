@@ -48,7 +48,7 @@ public class LoadPlayerDataTaskRunnable extends BukkitRunnable{
  			return;
  		}
  		//DBから読み込み終わるまで待つ
-		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
+		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.Companion.getPlayermap().get(uuid);
 		if(playerdata_s == null){
  			plugin.getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + p.getName() + "の建築系データ取得待機…(" + (i+1) + "回目)");
  			i++;

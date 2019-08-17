@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.github.unchama.seichiassist.MineStackObjectList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -40,7 +41,7 @@ public class PlayerRightClickListener implements Listener  {
 		EquipmentSlot equipmentslot = event.getHand();
 		//プレイヤーデータ
 		PlayerData playerdata = BuildAssist.playermap.get(uuid);
-		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.playermap.get(uuid);
+		com.github.unchama.seichiassist.data.PlayerData playerdata_s = SeichiAssist.Companion.getPlayermap().get(uuid);
 
 		//プレイヤーデータが無い場合は処理終了
 		if(playerdata == null){
@@ -238,9 +239,9 @@ public class PlayerRightClickListener implements Listener  {
 								}else {
 									//ここでMineStackの処理。flagがtrueならInvに関係なしにここに持ってくる
 									if(playerdata.zs_minestack_flag == true)minestack:{//label指定は基本的に禁じ手だが、今回は後付けなので使わせてもらう。(解読性向上のため、1箇所のみの利用)
-										for(int cnt = 0 ; cnt < SeichiAssist.minestacklist.size() ; cnt++ ){
-											if(offhanditem.getType().equals(SeichiAssist.minestacklist.get(cnt).getMaterial()) &&
-													offhanditem.getData().getData() == SeichiAssist.minestacklist.get(cnt).getDurability()){
+										for(int cnt = 0; cnt < MineStackObjectList.INSTANCE.getMinestacklist().size() ; cnt++ ){
+											if(offhanditem.getType().equals(MineStackObjectList.INSTANCE.getMinestacklist().get(cnt).getMaterial()) &&
+													offhanditem.getData().getData() == MineStackObjectList.INSTANCE.getMinestacklist().get(cnt).getDurability()){
 												no = cnt;
 												break;
 												//no:設置するブロック・max:設置できる最大量
@@ -249,12 +250,12 @@ public class PlayerRightClickListener implements Listener  {
 										if(no > 0){
 											//設置するブロックがMineStackに登録済み
 											//1引く
-											final MineStackObj mineStackObj = SeichiAssist.minestacklist.get(no);
-											if(playerdata_s.minestack.getStackedAmountOf(mineStackObj) > 0){
+											final MineStackObj mineStackObj = MineStackObjectList.INSTANCE.getMinestacklist().get(no);
+											if(playerdata_s.getMinestack().getStackedAmountOf(mineStackObj) > 0){
 												//player.sendMessage("MineStackよりブロック消費");
-												//player.sendMessage("MineStackブロック残量(前):" + playerdata_s.minestack.getNum(no));
-												playerdata_s.minestack.subtractStackedAmountOf(mineStackObj, 1);
-												//player.sendMessage("MineStackブロック残量(後):" + playerdata_s.minestack.getNum(no));
+												//player.sendMessage("MineStackブロック残量(前):" + playerdata_s.getMinestack().getNum(no));
+												playerdata_s.getMinestack().subtractStackedAmountOf(mineStackObj, 1);
+												//player.sendMessage("MineStackブロック残量(後):" + playerdata_s.getMinestack().getNum(no));
 
 												//設置処理
 												player.getWorld().getBlockAt(setblockX,setblockY,setblockZ).setType(offhanditem.getType());
